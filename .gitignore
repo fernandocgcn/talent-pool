@@ -1,2 +1,5 @@
 
 db/TalentPool.pdd
+src/.vs
+src/Kernel/bin
+src/Kernel/obj
