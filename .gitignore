@@ -5,3 +5,5 @@ src/Kernel/bin
 src/Kernel/obj
 src/EntityFramework/bin
 src/EntityFramework/obj
+src/TPDomain/bin
+src/TPDomain/obj
