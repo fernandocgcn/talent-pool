@@ -3,3 +3,5 @@ db/TalentPool.pdd
 src/.vs
 src/Kernel/bin
 src/Kernel/obj
+src/EntityFramework/bin
+src/EntityFramework/obj
