@@ -1,5 +1,5 @@
 export class Developer {
-  developerId: string;
+  developerId: number;
   email: string;
   name: string;
   city: string;

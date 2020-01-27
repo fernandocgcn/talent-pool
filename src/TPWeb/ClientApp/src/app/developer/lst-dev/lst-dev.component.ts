@@ -23,6 +23,21 @@ export class LstDevComponent implements OnInit {
   }
 
   add(): void {
-    this.router.navigate(['add-dev']);
+    this.router.navigate(['frm-dev'],
+      { state: { developer: new Developer } });
+  }
+
+  update(dev: Developer): void {
+    this.router.navigate(['frm-dev'],
+      { state: { developer: dev } });
+  }
+
+  delete(dev: Developer): void {
+    if (confirm('Você realmente deseja excluir o Desenvolvedor?')) {
+      this.httpClient.delete(this.baseUrl + `developer/${dev.developerId}`)
+        .toPromise()
+        .then(result => this.developers.splice(this.developers.indexOf(dev), 1))
+        .catch(httpError => console.log(httpError));
+    }
   }
 }

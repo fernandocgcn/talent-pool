@@ -27,9 +27,15 @@ namespace TPWeb.Controllers
         }
 
         [HttpPost]
-        public int Add(Developer developer)
+        public int Save(Developer developer)
         {
-            return _developerService.New(developer);
+            return _developerService.Save(developer, developer.DeveloperId == 0);
+        }
+
+        [HttpDelete("{id}")]
+        public int Delete(int id)
+        {
+            return _developerService.Delete(_developerService.Get(id));
         }
     }
 }

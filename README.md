@@ -1,19 +1,20 @@
 # Talent Pool
 
-Exemplo de CRUD de um Banco de Talentos
+Exemplo de CRUD de um Banco de Talentos para Desenvolvedores
 
 ## Tecnologias Utilizadas
 
-### Banco de Dados
+### Banco de Dados (Microsoft SQL Server 2008 R2 Express Edition)
 
-Microsoft SQL Server 2008 R2 Express Edition (Database "TalentPoolDb")
+db/CREATE.sql - DDL das Tabelas e Relacionamentos da Database "TalentPoolDb"
+db/ERD.png - Diagrama Entidade-Relacionamento
 
-### Back-End (C# - netcoreapp3.1)
+### Back-End (C# - .NET Core)
 
 src/Kernel - Biblioteca Genérica Utilitária  
-src/EntityFramework - Biblioteca Genérica para Acesso aos Dados (Microsoft.EntityFrameworkCore), utilizando os padrões "Repository" e "Unit of Work"  
+src/EntityFramework - Biblioteca Genérica para Acesso aos Dados (Microsoft.EntityFrameworkCore), utilizando os padrões "Repository", "Unit of Work" e "Dependency Injection"  
 src/TPDomain - Biblioteca do Domínio e Modelo do Negócio do Projeto  
 
-### Front-End (C# - netcoreapp3.1; Typescript - Angular)
+### Front-End (C# - .NET Core; TypeScript - Angular)
 
-src/TPWeb - Aplicação Web (Microsoft.AspNetCore.SpaServices.Extensions), utilizando os padrões "MVVM" e "Injeção de Dependência"
+src/TPWeb - Aplicação Web (Microsoft.AspNetCore.SpaServices.Extensions), utilizando os padrões "MVVM" e "Dependency Injection"

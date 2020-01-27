@@ -2,39 +2,39 @@
   <ul style="list-style-type: none;">
     <li>
       <label>Email:&nbsp;</label>
-      <input type="email" [(ngModel)]="developer.Email" />
+      <input type="email" [(ngModel)]="developer.email" />
     </li>
     <li>
       <label>Name:&nbsp;</label>
-      <input type="text" [(ngModel)]="developer.Name" />
+      <input type="text" [(ngModel)]="developer.name" />
     </li>
     <li>
       <label>City:&nbsp;</label>
-      <input type="text" [(ngModel)]="developer.City" />
+      <input type="text" [(ngModel)]="developer.city" />
     </li>
     <li>
       <label>State:&nbsp;</label>
-      <input type="text" [(ngModel)]="developer.State" />
+      <input type="text" [(ngModel)]="developer.state" />
     </li>
     <li>
       <label>Skype:&nbsp;</label>
-      <input type="text" [(ngModel)]="developer.Skype" />
+      <input type="text" [(ngModel)]="developer.skype" />
     </li>
     <li>
       <label>Whatsapp:&nbsp;</label>
-      <input type="text" [(ngModel)]="developer.Whatsapp" />
+      <input type="text" [(ngModel)]="developer.whatsapp" />
     </li>
     <li>
       <label>Salary:&nbsp;</label>
-      <input type="number" [(ngModel)]="developer.Salary" />
+      <input type="number" [(ngModel)]="developer.salary" />
     </li>
     <li>
       <button (click)="save()">Save</button>
     </li>
     <li>
       <ul style="list-style-type: decimal;">
-        <li *ngFor="let error of errors">
-          {{ error }}
+        <li *ngFor="let message of messages">
+          {{ message }}
         </li>
       </ul>
     </li>

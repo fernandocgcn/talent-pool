@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { LstDevComponent } from './developer/lst-dev/lst-dev.component';
-import { AddDevComponent } from './developer/add-dev/add-dev.component';
+import { FrmDevComponent } from './developer/frm-dev/frm-dev.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,7 @@ import { AddDevComponent } from './developer/add-dev/add-dev.component';
     NavMenuComponent,
     HomeComponent,
     LstDevComponent,
-    AddDevComponent,
+    FrmDevComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -25,7 +25,7 @@ import { AddDevComponent } from './developer/add-dev/add-dev.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'lst-dev', component: LstDevComponent },
-      { path: 'add-dev', component: AddDevComponent },
+      { path: 'frm-dev', component: FrmDevComponent },
     ])
   ],
   providers: [],
