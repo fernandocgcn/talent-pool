@@ -13,6 +13,11 @@ namespace TPDomain.Services
             _unitOfWork = unitOfWork;
         }
 
+        public Developer Get(int id)
+        {
+            return _unitOfWork.Get<Developer>(id);
+        }
+
         public List<Developer> GetDevelopers()
         {
             return _unitOfWork.GetAll<Developer>();
@@ -24,17 +29,7 @@ namespace TPDomain.Services
             return _unitOfWork.Commit();
         }
 
-        public int New(Developer developer)
-        {
-            return Save(developer, true);
-        }
-
-        public int Update(Developer developer)
-        {
-            return Save(developer, false);
-        }
-
-        private int Save(Developer developer, bool isNew)
+        public int Save(Developer developer, bool isNew)
         {
             _unitOfWork.Save(developer, isNew);
             return _unitOfWork.Commit();
