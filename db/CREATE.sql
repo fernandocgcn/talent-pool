@@ -4,7 +4,7 @@ GO
 
 -- Desenvolvedores Candidatos
 CREATE TABLE [dbo].[tb_developer](
-	[dev_id] [int] NOT NULL,
+	[dev_id] [int] IDENTITY(1,1) NOT NULL,
 	[dev_email] [varchar](255) NOT NULL,
 	[dev_name] [varchar](255) NOT NULL,
 	[dev_city] [varchar](255) NOT NULL,
