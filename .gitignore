@@ -9,3 +9,4 @@ src/TPDomain/bin
 src/TPDomain/obj
 src/TPWeb/bin
 src/TPWeb/obj
+src/TPWeb/ClientApp/package-lock.json
