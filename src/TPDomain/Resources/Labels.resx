@@ -117,7 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="City" xml:space="preserve">
+    <value>Cidade</value>
+  </data>
+  <data name="CrudLink" xml:space="preserve">
+    <value>Link do Exemplo de CRUD</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="ExtraKnowledge" xml:space="preserve">
+    <value>Conhecimento Extra</value>
+  </data>
+  <data name="LinkedIn" xml:space="preserve">
+    <value>LinkedIn</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Nome</value>
+  </data>
+  <data name="Portfolio" xml:space="preserve">
+    <value>Portfólio</value>
+  </data>
+  <data name="Salary" xml:space="preserve">
+    <value>Salário</value>
+  </data>
+  <data name="Skype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="Whatsapp" xml:space="preserve">
+    <value>Telefone / Whatsapp</value>
   </data>
 </root>
