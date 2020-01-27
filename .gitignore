@@ -7,3 +7,5 @@ src/EntityFramework/bin
 src/EntityFramework/obj
 src/TPDomain/bin
 src/TPDomain/obj
+src/TPWeb/bin
+src/TPWeb/obj

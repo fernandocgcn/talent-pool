@@ -1,0 +1,31 @@
+<h1 id="tableLabel">Developers</h1>
+
+<p *ngIf="!developers"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="developers">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Name</th>
+      <th>City/State</th>
+      <th>Whatsapp</th>
+      <th>Update</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let developer of developers">
+      <td>{{ developer.email }}</td>
+      <td>{{ developer.name }}</td>
+      <td>{{ developer.city +"/"+ developer.state }}</td>
+      <td>{{ developer.whatsapp }}</td>
+      <td style="text-align:center"><button (click)="update(developer)"></button></td>
+      <td style="text-align:center"><button (click)="delete(developer)"></button></td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td><button (click)="add()">New Developer</button></td>
+    </tr>
+  </tfoot>
+</table>

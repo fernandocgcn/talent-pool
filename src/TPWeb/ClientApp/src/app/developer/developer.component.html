@@ -1,0 +1,42 @@
+<div>
+  <ul style="list-style-type: none;">
+    <li>
+      <label>Email:&nbsp;</label>
+      <input type="email" [(ngModel)]="developer.Email" />
+    </li>
+    <li>
+      <label>Name:&nbsp;</label>
+      <input type="text" [(ngModel)]="developer.Name" />
+    </li>
+    <li>
+      <label>City:&nbsp;</label>
+      <input type="text" [(ngModel)]="developer.City" />
+    </li>
+    <li>
+      <label>State:&nbsp;</label>
+      <input type="text" [(ngModel)]="developer.State" />
+    </li>
+    <li>
+      <label>Skype:&nbsp;</label>
+      <input type="text" [(ngModel)]="developer.Skype" />
+    </li>
+    <li>
+      <label>Whatsapp:&nbsp;</label>
+      <input type="text" [(ngModel)]="developer.Whatsapp" />
+    </li>
+    <li>
+      <label>Salary:&nbsp;</label>
+      <input type="number" [(ngModel)]="developer.Salary" />
+    </li>
+    <li>
+      <button (click)="save()">Save</button>
+    </li>
+    <li>
+      <ul style="list-style-type: decimal;">
+        <li *ngFor="let error of errors">
+          {{ error }}
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
