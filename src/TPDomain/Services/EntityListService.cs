@@ -6,26 +6,26 @@ namespace TPDomain.Services
 {
     public class EntityListService : IEntityListService
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IRepository _repository;
 
-        public EntityListService(IUnitOfWork unitOfWork)
+        public EntityListService(IRepository repository)
         {
-            _unitOfWork = unitOfWork;
+            _repository = repository;
         }
 
         public List<Availability> GetAvailabilities()
         {
-            return _unitOfWork.GetAll<Availability>();
+            return _repository.GetAll<Availability>();
         }
 
         public List<Knowledge> GetKnowledges()
         {
-            return _unitOfWork.GetAll<Knowledge>();
+            return _repository.GetAll<Knowledge>();
         }
 
         public List<WorkingTime> GetWorkingTimes()
         {
-            return _unitOfWork.GetAll<WorkingTime>();
+            return _repository.GetAll<WorkingTime>();
         }
     }
 }
