@@ -6,7 +6,7 @@ using System;
 
 namespace TPDomain.Models
 {
-    [Table("tb_developer")]
+    [Table("tb_developer", Schema = "dbo")]
     public class Developer
     {
         [Key]

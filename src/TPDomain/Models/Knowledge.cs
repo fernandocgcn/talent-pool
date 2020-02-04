@@ -4,7 +4,7 @@ using System;
 
 namespace TPDomain.Models
 {
-    [Table("tb_knowledge")]
+    [Table("tb_knowledge", Schema = "dbo")]
     public class Knowledge
     {
         [Key]

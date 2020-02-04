@@ -9,7 +9,6 @@ namespace TPDomain.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("dbo");
             modelBuilder.Entity<Developer>()
                 .HasIndex(d => d.Email)
                 .IsUnique();

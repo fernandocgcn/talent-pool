@@ -24,15 +24,15 @@ namespace TPWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<TPDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("TalentPoolDb")), 
-                ServiceLifetime.Singleton);
-            services.AddSingleton<IRepository, Repository>();
-            services.AddSingleton<IUnitOfWork, UnitOfWork>();
-            services.AddSingleton<IDataAnnotationValidator, DataAnnotationValidator>();
-            services.AddSingleton<IEntityListService, EntityListService>();
-            services.AddSingleton<IDeveloperService, DeveloperService>();
-            services.AddSingleton<DbContext, TPDbContext>();
+            services.AddDbContext<TPDbContext>(options => options
+                .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")), 
+                ServiceLifetime.Scoped);
+            services.AddScoped<DbContext, TPDbContext>();
+            services.AddScoped<IRepository, Repository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IDataAnnotationValidator, DataAnnotationValidator>();
+            services.AddScoped<IEntityListService, EntityListService>();
+            services.AddScoped<IDeveloperService, DeveloperService>();
 
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory

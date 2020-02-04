@@ -4,7 +4,7 @@ using System;
 
 namespace TPDomain.Models
 {
-    [Table("tb_working_time")]
+    [Table("tb_working_time", Schema = "dbo")]
     public class WorkingTime
     {
         [Key]

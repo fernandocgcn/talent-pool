@@ -12,9 +12,9 @@ Exemplo de CRUD de um Banco de Talentos para Desenvolvedores
 ### Back-End (C# - .NET Core)
 
 * src/Kernel - Biblioteca Genérica Utilitária  
-* src/EntityFramework - Biblioteca Genérica para Acesso aos Dados (Microsoft.EntityFrameworkCore), utilizando os padrões "Repository", "Unit of Work" e "Dependency Injection"  
+* src/EntityFramework - Biblioteca Genérica para Acesso aos Dados (Microsoft.EntityFrameworkCore), utilizando os padrões "Repository", "Unit of Work" (Microsoft.EntityFrameworkCore.DbContext) e "Dependency Injection"  
 * src/TPDomain - Biblioteca do Domínio e Modelo do Negócio do Projeto  
 
 ### Front-End (C# - .NET Core; TypeScript - Angular)
 
-* src/TPWeb - Aplicação Web (Microsoft.AspNetCore.SpaServices.Extensions), utilizando os padrões "MVVM" e "Dependency Injection"
+* src/TPWeb - Aplicação Web (Microsoft.AspNetCore.SpaServices.Extensions), utilizando os padrões "MVC", "MVVM" e "Dependency Injection"

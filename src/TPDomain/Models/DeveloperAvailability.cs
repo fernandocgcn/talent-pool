@@ -3,7 +3,7 @@ using System;
 
 namespace TPDomain.Models
 {
-    [Table("tb_developer_availability")]
+    [Table("tb_developer_availability", Schema = "dbo")]
     public class DeveloperAvailability
     {
         [Column("dev_id")]
