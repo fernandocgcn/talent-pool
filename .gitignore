@@ -7,6 +7,8 @@ src/EntityFramework/bin
 src/EntityFramework/obj
 src/TPDomain/bin
 src/TPDomain/obj
+src/TPData/bin
+src/TPData/obj
 src/TPWeb/bin
 src/TPWeb/obj
 src/TPWeb/ClientApp/package-lock.json
