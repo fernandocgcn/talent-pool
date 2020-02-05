@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TPDomain.Models.Availability">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAgAAAAAAAAAAAAIAAAAAAAAAgAAA=</HashCode>
+      <FileName>Models\Availability.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPDomain.Models.Developer">
+    <Position X="6.25" Y="1.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAACAAQCAAQAAYgAAAAAwAAAAAAIAAAAAABFAAAAA=</HashCode>
+      <FileName>Models\Developer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPDomain.Models.DeveloperAvailability">
+    <Position X="3.25" Y="1.25" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAABAAAAAIAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\DeveloperAvailability.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Availability" />
+      <Property Name="Developer" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TPDomain.Models.Knowledge">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABgAAAAAQAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Knowledge.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPDomain.Models.DeveloperKnowledge">
+    <Position X="3.25" Y="2.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>QAAAAAgAAAAAAAAAgAAAAAAAAIAAAIAAAAAAAAAgAAA=</HashCode>
+      <FileName>Models\DeveloperKnowledge.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Knowledge" />
+      <Property Name="Developer" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TPDomain.Models.WorkingTime">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAgIAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\WorkingTime.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPDomain.Models.DeveloperWorkingTime">
+    <Position X="3.25" Y="4.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAIAAAIAAACAAAAAAAAA=</HashCode>
+      <FileName>Models\DeveloperWorkingTime.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="WorkingTime" />
+      <Property Name="Developer" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

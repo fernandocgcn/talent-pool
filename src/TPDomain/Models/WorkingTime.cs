@@ -1,17 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System;
+﻿using System;
 
 namespace TPDomain.Models
 {
-    [Table("tb_working_time", Schema = "dbo")]
     public class WorkingTime
     {
-        [Key]
-        [Column("wot_id")]
         public int WorkingTimeId { get; set; }
 
-        [Column("wot_description")]
         public string Description { get; set; }
 
         public override bool Equals(object obj)

@@ -1,24 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System;
+﻿using System;
 
 namespace TPDomain.Models
 {
-    [Table("tb_developer_knowledge", Schema = "dbo")]
     public class DeveloperKnowledge
     {
-        [Key]
-        [Column("dek_id")]
         public int DeveloperKnowledgeId { get; set; }
 
-        [Column("dek_rate")]
         public short Rate { get; set; }
 
-        [Column("dev_id")]
-        public int DeveloperId { get; set; }
+        public Developer Developer { get; set; }
 
-        [Column("kno_id")]
-        public int KnowledgeId { get; set; }
+        public Knowledge Knowledge { get; set; }
 
         public override bool Equals(object obj)
         {

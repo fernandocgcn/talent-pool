@@ -1,27 +1,24 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System;
+﻿using System;
+using System.Collections.Generic;
 
 namespace TPDomain.Models
 {
-    [Table("tb_developer_availability", Schema = "dbo")]
     public class DeveloperAvailability
     {
-        [Column("dev_id")]
-        public int DeveloperId { get; set; }
+        public Developer Developer { get; set; }
 
-        [Column("ava_id")]
-        public int AvailabilityId { get; set; }
+        public Availability Availability { get; set; }
 
         public override bool Equals(object obj)
         {
             return obj is DeveloperAvailability availability &&
-                   DeveloperId == availability.DeveloperId &&
-                   AvailabilityId == availability.AvailabilityId;
+                   EqualityComparer<Developer>.Default.Equals(Developer, availability.Developer) &&
+                   EqualityComparer<Availability>.Default.Equals(Availability, availability.Availability);
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(DeveloperId, AvailabilityId);
+            return HashCode.Combine(Developer, Availability);
         }
     }
 }
