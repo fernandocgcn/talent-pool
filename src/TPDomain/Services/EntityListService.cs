@@ -1,5 +1,6 @@
 ﻿using EntityFramework.Data;
 using TPDomain.Models;
+using System;
 using System.Collections.Generic;
 
 namespace TPDomain.Services
@@ -10,7 +11,8 @@ namespace TPDomain.Services
 
         public EntityListService(IRepository repository)
         {
-            _repository = repository;
+            _repository = repository ?? 
+                throw new ArgumentNullException(nameof(repository));
         }
 
         public List<Availability> GetAvailabilities()

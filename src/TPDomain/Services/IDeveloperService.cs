@@ -5,9 +5,10 @@ namespace TPDomain.Services
 {
     public interface IDeveloperService
     {
-        Developer Get(int id);
         List<Developer> GetDevelopers();
-        int Delete(Developer developer);
-        int Save(Developer developer, bool isNew);
+        Developer Get(int id);
+        int Delete(int id);
+        int Add(Developer developer);
+        int Update(Developer developer);
     }
 }

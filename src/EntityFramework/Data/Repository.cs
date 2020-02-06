@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,13 +15,14 @@ namespace EntityFramework.Data
 
         public Repository(DbContext dbContext)
         {
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            _dbContext = dbContext ?? 
+                throw new ArgumentNullException(nameof(dbContext));
         }
 
         public string[] GetKeyProperties<T>(T entity) where T : class
         {
             object[] objects = GetKey(entity, false);
-            string[] strings = ((System.Collections.IEnumerable)objects).Cast<object>()
+            string[] strings = ((IEnumerable)objects).Cast<object>()
                 .Select(obj => obj.ToString()).ToArray();
             return strings;
         }
@@ -51,7 +53,6 @@ namespace EntityFramework.Data
             try
             {
                 _dbContext.Add(entity);
-                //return DbContext.SaveChanges();
             }
             catch (Exception e)
             {
@@ -65,7 +66,6 @@ namespace EntityFramework.Data
             try
             {
                 _dbContext.Remove(attachedEntity);
-                //return DbContext.SaveChanges();
             }
             catch (Exception e)
             {
@@ -79,7 +79,6 @@ namespace EntityFramework.Data
             try
             {
                 _dbContext.Entry(oldEntity).CurrentValues.SetValues(newEntity);
-                //return DbContext.SaveChanges();
             }
             catch (Exception e)
             {
@@ -93,7 +92,6 @@ namespace EntityFramework.Data
             try
             {
                 _dbContext.Update(attachedEntity);
-                //return DbContext.SaveChanges();
             }
             catch (Exception e)
             {
@@ -126,7 +124,9 @@ namespace EntityFramework.Data
                 navigation.Load();
                 var parent = navigation.CurrentValue;
                 if (parent != null)
+                {
                     LoadParent(parent);
+                }
             }
         }
 

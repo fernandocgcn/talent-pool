@@ -29,13 +29,16 @@ namespace TPWeb.Controllers
         [HttpPost]
         public int Save(Developer developer)
         {
-            return _developerService.Save(developer, developer.DeveloperId == 0);
+            if (developer?.DeveloperId == 0)
+                return _developerService.Add(developer);
+            else
+                return _developerService.Update(developer);
         }
 
         [HttpDelete("{id}")]
         public int Delete(int id)
         {
-            return _developerService.Delete(_developerService.Get(id));
+            return _developerService.Delete(id);
         }
     }
 }
