@@ -1,5 +1,4 @@
 
-db/TalentPool.pdd
 src/.vs
 src/Kernel/bin
 src/Kernel/obj
@@ -7,8 +6,11 @@ src/EntityFramework/bin
 src/EntityFramework/obj
 src/TPDomain/bin
 src/TPDomain/obj
+src/TPDomainTests/bin
+src/TPDomainTests/obj
 src/TPData/bin
 src/TPData/obj
 src/TPWeb/bin
 src/TPWeb/obj
 src/TPWeb/ClientApp/package-lock.json
+src/TestResults

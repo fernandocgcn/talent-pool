@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityFramework", "EntityFr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TPDomain", "TPDomain\TPDomain.csproj", "{F8BE9ACA-1BD2-48D3-9823-72D241E33F78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TPData", "TPData\TPData.csproj", "{08859A2F-840E-40D0-B244-91046535B0FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TPData", "TPData\TPData.csproj", "{08859A2F-840E-40D0-B244-91046535B0FE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TPWeb", "TPWeb\TPWeb.csproj", "{5E48CC19-8AF5-4982-9F56-142090328EAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TPDomainTests", "TPDomainTests\TPDomainTests.csproj", "{FACDE02E-74CF-47B2-93A2-4F2E9730980E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{5E48CC19-8AF5-4982-9F56-142090328EAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E48CC19-8AF5-4982-9F56-142090328EAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E48CC19-8AF5-4982-9F56-142090328EAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FACDE02E-74CF-47B2-93A2-4F2E9730980E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FACDE02E-74CF-47B2-93A2-4F2E9730980E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FACDE02E-74CF-47B2-93A2-4F2E9730980E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FACDE02E-74CF-47B2-93A2-4F2E9730980E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

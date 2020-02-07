@@ -24,7 +24,9 @@ namespace EntityFramework.Validations
                 string errorMessage = "";
                 foreach (var error in validationResult.ValidationErrors)
                 {
-                    errorMessage += typeof(DataMessages).GetMessage(error.ErrorMessage) + Environment.NewLine;
+                    if (!string.IsNullOrEmpty(errorMessage))
+                        errorMessage += Environment.NewLine;
+                    errorMessage += typeof(DataMessages).GetMessage(error.ErrorMessage);
                 }
                 throw new ValidationException(errorMessage);
             }

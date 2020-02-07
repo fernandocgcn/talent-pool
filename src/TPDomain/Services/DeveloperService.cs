@@ -56,7 +56,7 @@ namespace TPDomain.Services
         {
             _dataAnnotationValidator.Validate(entity);
 
-            var existingEntity = _repository.GetByKey<Developer>(_repository.GetKeyValues(entity));
+            var existingEntity = _repository.GetByKey<Developer>(entity.DeveloperId);
             if (existingEntity != null)
             {
                 throw new Exception(typeof(DataMessages).GetMessage("ErrorMessage_RecordFound"));
@@ -68,9 +68,10 @@ namespace TPDomain.Services
 
         public int Update(Developer entity)
         {
+            _repository.Detach(entity);
             _dataAnnotationValidator.Validate(entity);
 
-            var existingEntity = _repository.GetByKey<Developer>(_repository.GetKeyValues(entity));
+            var existingEntity = _repository.GetByKey<Developer>(entity.DeveloperId);
             if (existingEntity == null)
             {
                 throw new Exception(typeof(DataMessages).GetMessage("ErrorMessage_RecordNotFound"));
