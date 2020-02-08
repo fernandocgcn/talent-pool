@@ -5,34 +5,24 @@ using EntityFramework.Resources;
 using TPDomain.Models;
 using TPDomain.Services;
 using TPDomain.Resources;
-using TPData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Data.Sqlite;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace TPDomainTests.Services
 {
     [TestClass]
-    public class DeveloperServiceTests
+    public class DeveloperServiceTests : BaseServiceTests
     {
         private readonly IDeveloperService _developerService;
 
         public DeveloperServiceTests()
         {
-            var connection = new SqliteConnection("DataSource=:memory:");
-            connection.Open();
-            var options = new DbContextOptionsBuilder<TPDbContext>()
-                    .UseSqlite(connection)
-                    .Options;
-            var dbContext = new TPDbContext(options);
-            dbContext.Database.EnsureCreated();
-
             _developerService = new DeveloperService(
-                new Repository(dbContext),
+                new Repository(_dbContext),
                 new DataAnnotationValidator()
             );
         }
