@@ -43,7 +43,7 @@ namespace EntityFramework.Data
             return entity;
         }
 
-        public List<T> GetAll<T>(bool isEager) where T : class
+        public ICollection<T> GetAll<T>(bool isEager) where T : class
         {
             return IncludeAll<T>(isEager).AsNoTracking().ToList();
         }
@@ -165,6 +165,11 @@ namespace EntityFramework.Data
         public void Detach<T>(T attachedEntity) where T : class
         {
             _dbContext.Entry(attachedEntity).State = EntityState.Detached;
+        }
+
+        public void Attach<T>(T detachedEntity) where T : class
+        {
+            _dbContext.Attach(detachedEntity);
         }
 
         public int Commit()

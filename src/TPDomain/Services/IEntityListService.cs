@@ -5,8 +5,8 @@ namespace TPDomain.Services
 {
     public interface IEntityListService
     {
-        List<Availability> GetAvailabilities();
-        List<WorkingTime> GetWorkingTimes();
-        List<Knowledge> GetKnowledges();
+        ICollection<Availability> GetAvailabilities();
+        ICollection<WorkingTime> GetWorkingTimes();
+        ICollection<Knowledge> GetKnowledges();
     }
 }

@@ -15,17 +15,17 @@ namespace TPDomain.Services
                 throw new ArgumentNullException(nameof(repository));
         }
 
-        public List<Availability> GetAvailabilities()
+        public ICollection<Availability> GetAvailabilities()
         {
             return _repository.GetAll<Availability>();
         }
 
-        public List<Knowledge> GetKnowledges()
+        public ICollection<Knowledge> GetKnowledges()
         {
             return _repository.GetAll<Knowledge>();
         }
 
-        public List<WorkingTime> GetWorkingTimes()
+        public ICollection<WorkingTime> GetWorkingTimes()
         {
             return _repository.GetAll<WorkingTime>();
         }
