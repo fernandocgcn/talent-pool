@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Data.Common;
 
-namespace TPDomainTests.Services
+namespace TPDomainTests.ServicesTests
 {
     [TestClass]
     public class BaseServiceTests

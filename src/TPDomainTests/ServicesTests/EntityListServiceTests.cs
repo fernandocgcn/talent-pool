@@ -2,7 +2,7 @@ using EntityFramework.Data;
 using TPDomain.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TPDomainTests.Services
+namespace TPDomainTests.ServicesTests
 {
     [TestClass]
     public class EntityListServiceTests : BaseServiceTests

@@ -6,6 +6,8 @@ using TPDomain.Models;
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace TPDomain.Services
 {
@@ -23,7 +25,7 @@ namespace TPDomain.Services
                 throw new ArgumentNullException(nameof(dataAnnotationValidator));
         }
         
-        public List<Developer> GetDevelopers()
+        public ICollection<Developer> GetDevelopers()
         {
             return _repository.GetAll<Developer>();
         }
@@ -35,15 +37,15 @@ namespace TPDomain.Services
 
         public int Delete(int id)
         {
-            var existingEntity = _repository.GetByKey<Developer>(id);
-            if (existingEntity == null)
+            var existingDeveloper = _repository.GetByKey<Developer>(id);
+            if (existingDeveloper == null)
             {
-                throw new Exception(typeof(DataMessages).GetMessage("ErrorMessage_RecordNotFound"));
+                throw new ValidationException(typeof(DataMessages).GetMessage("ErrorMessage_RecordNotFound"));
             }
 
             try
             {
-                _repository.Delete(existingEntity);
+                _repository.Delete(existingDeveloper);
                 return _repository.Commit();
             }
             catch (DbUpdateException)
@@ -52,31 +54,63 @@ namespace TPDomain.Services
             }
         }
 
-        public int Add(Developer entity)
+        public int Add(Developer developer, ICollection<Availability> availabilities)
         {
-            _dataAnnotationValidator.Validate(entity);
+            _dataAnnotationValidator.Validate(developer);
 
-            var existingEntity = _repository.GetByKey<Developer>(entity.DeveloperId);
-            if (existingEntity != null)
+            var existingDeveloper = _repository.GetByKey<Developer>(developer.DeveloperId);
+            if (existingDeveloper != null)
             {
-                throw new Exception(typeof(DataMessages).GetMessage("ErrorMessage_RecordFound"));
+                throw new ValidationException(typeof(DataMessages).GetMessage("ErrorMessage_RecordFound"));
             }
-            _repository.Add(entity);
+            if (availabilities == null || availabilities.Count == 0)
+            {
+                throw new ValidationException(typeof(DataMessages).GetMessage("ErrorMessage_Required", "Disponibilidades"));
+            }
+
+            _repository.Add(developer);
+            foreach (var availability in availabilities)
+            {
+                _repository.Attach(availability);
+                _repository.Add(
+                    new DeveloperAvailability()
+                    {
+                        Availability = availability,
+                        Developer = developer
+                    });
+            }
 
             return _repository.Commit();
         }
 
-        public int Update(Developer entity)
+        public int Update(Developer developer, ICollection<Availability> availabilities)
         {
-            _repository.Detach(entity);
-            _dataAnnotationValidator.Validate(entity);
+            _repository.Detach(developer);
+            _dataAnnotationValidator.Validate(developer);
 
-            var existingEntity = _repository.GetByKey<Developer>(entity.DeveloperId);
-            if (existingEntity == null)
+            var existingDeveloper = _repository.GetByKey<Developer>(developer.DeveloperId);
+            if (existingDeveloper == null)
             {
-                throw new Exception(typeof(DataMessages).GetMessage("ErrorMessage_RecordNotFound"));
+                throw new ValidationException(typeof(DataMessages).GetMessage("ErrorMessage_RecordNotFound"));
             }
-            _repository.Overwrite(existingEntity, entity);
+            if (availabilities == null || availabilities.Count == 0)
+            {
+                throw new ValidationException(typeof(DataMessages).GetMessage("ErrorMessage_Required", "Disponibilidades"));
+            }
+
+            _repository.Overwrite(existingDeveloper, developer);
+            _repository.Delete<DeveloperAvailability>
+                (da => da.Developer.Equals(existingDeveloper));
+            foreach (var availability in availabilities)
+            {
+                _repository.Attach(availability);
+                _repository.Add(
+                    new DeveloperAvailability()
+                    {
+                        Availability = availability,
+                        Developer = existingDeveloper
+                    });
+            }
 
             return _repository.Commit();
         }

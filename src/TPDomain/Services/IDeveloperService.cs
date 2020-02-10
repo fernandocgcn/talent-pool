@@ -5,10 +5,10 @@ namespace TPDomain.Services
 {
     public interface IDeveloperService
     {
-        List<Developer> GetDevelopers();
+        ICollection<Developer> GetDevelopers();
         Developer Get(int id);
         int Delete(int id);
-        int Add(Developer developer);
-        int Update(Developer developer);
+        int Add(Developer developer, ICollection<Availability> availabilities);
+        int Update(Developer developer, ICollection<Availability> availabilities);
     }
 }

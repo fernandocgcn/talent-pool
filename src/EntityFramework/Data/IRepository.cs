@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace EntityFramework.Data
 {
@@ -15,6 +16,8 @@ namespace EntityFramework.Data
         void Add<T>(T entity) where T : class;
 
         void Delete<T>(T attachedEntity) where T : class;
+
+        void Delete<T>(Func<T, bool> func) where T : class;
 
         void Overwrite<T>(T oldEntity, T newEntity) where T : class;
 

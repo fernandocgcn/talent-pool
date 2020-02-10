@@ -74,6 +74,11 @@ namespace EntityFramework.Data
             }
         }
 
+        public void Delete<T>(Func<T, bool> func) where T : class
+        {
+            _dbContext.RemoveRange(_dbContext.Set<T>().Where(func));
+        }
+
         public void Overwrite<T>(T oldEntity, T newEntity) where T : class
         {
             try
