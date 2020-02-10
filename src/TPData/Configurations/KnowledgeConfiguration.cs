@@ -12,7 +12,8 @@ namespace TPData.Configurations
 
             builder.Property(entity => entity.KnowledgeId)
                 .HasColumnName("kno_id")
-                .IsRequired();
+                .IsRequired()
+                .ValueGeneratedNever();
             builder.Property(entity => entity.Name)
                 .HasColumnName("kno_name")
                 .IsRequired();

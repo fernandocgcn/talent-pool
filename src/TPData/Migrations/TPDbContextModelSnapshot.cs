@@ -22,10 +22,8 @@ namespace TPData.Migrations
             modelBuilder.Entity("TPDomain.Models.Availability", b =>
                 {
                     b.Property<int>("AvailabilityId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnName("ava_id")
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -148,10 +146,8 @@ namespace TPData.Migrations
             modelBuilder.Entity("TPDomain.Models.DeveloperKnowledge", b =>
                 {
                     b.Property<int>("DeveloperKnowledgeId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnName("dek_id")
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<short>("Rate")
                         .HasColumnName("dek_rate")
@@ -191,10 +187,8 @@ namespace TPData.Migrations
             modelBuilder.Entity("TPDomain.Models.Knowledge", b =>
                 {
                     b.Property<int>("KnowledgeId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnName("kno_id")
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -371,10 +365,8 @@ namespace TPData.Migrations
             modelBuilder.Entity("TPDomain.Models.WorkingTime", b =>
                 {
                     b.Property<int>("WorkingTimeId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnName("wot_id")
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()

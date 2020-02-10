@@ -12,7 +12,8 @@ namespace TPData.Configurations
 
             builder.Property(entity => entity.WorkingTimeId)
                 .HasColumnName("wot_id")
-                .IsRequired();
+                .IsRequired()
+                .ValueGeneratedNever();
             builder.Property(entity => entity.Description)
                 .HasColumnName("wot_description")
                 .IsRequired();

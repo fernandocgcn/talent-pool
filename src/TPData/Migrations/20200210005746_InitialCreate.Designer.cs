@@ -9,7 +9,7 @@ using TPData;
 namespace TPData.Migrations
 {
     [DbContext(typeof(TPDbContext))]
-    [Migration("20200204222036_InitialCreate")]
+    [Migration("20200210005746_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,10 +24,8 @@ namespace TPData.Migrations
             modelBuilder.Entity("TPDomain.Models.Availability", b =>
                 {
                     b.Property<int>("AvailabilityId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnName("ava_id")
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -37,6 +35,33 @@ namespace TPData.Migrations
                     b.HasKey("AvailabilityId");
 
                     b.ToTable("tb_availability");
+
+                    b.HasData(
+                        new
+                        {
+                            AvailabilityId = 1,
+                            Description = "Up to 4 hours per day / Até 4 horas por dia"
+                        },
+                        new
+                        {
+                            AvailabilityId = 2,
+                            Description = "4 to 6 hours per day / De 4 á 6 horas por dia"
+                        },
+                        new
+                        {
+                            AvailabilityId = 3,
+                            Description = "6 to 8 hours per day /De 6 á 8 horas por dia"
+                        },
+                        new
+                        {
+                            AvailabilityId = 4,
+                            Description = "Up to 8 hours a day (are you sure?) / Acima de 8 horas por dia (tem certeza?)"
+                        },
+                        new
+                        {
+                            AvailabilityId = 5,
+                            Description = "Only weekends / Apenas finais de semana"
+                        });
                 });
 
             modelBuilder.Entity("TPDomain.Models.Developer", b =>
@@ -123,10 +148,8 @@ namespace TPData.Migrations
             modelBuilder.Entity("TPDomain.Models.DeveloperKnowledge", b =>
                 {
                     b.Property<int>("DeveloperKnowledgeId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnName("dek_id")
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<short>("Rate")
                         .HasColumnName("dek_rate")
@@ -166,10 +189,8 @@ namespace TPData.Migrations
             modelBuilder.Entity("TPDomain.Models.Knowledge", b =>
                 {
                     b.Property<int>("KnowledgeId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnName("kno_id")
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -179,15 +200,175 @@ namespace TPData.Migrations
                     b.HasKey("KnowledgeId");
 
                     b.ToTable("tb_knowledge");
+
+                    b.HasData(
+                        new
+                        {
+                            KnowledgeId = 1,
+                            Name = "Ionic"
+                        },
+                        new
+                        {
+                            KnowledgeId = 2,
+                            Name = "ReactJS"
+                        },
+                        new
+                        {
+                            KnowledgeId = 3,
+                            Name = "React Native"
+                        },
+                        new
+                        {
+                            KnowledgeId = 4,
+                            Name = "Android"
+                        },
+                        new
+                        {
+                            KnowledgeId = 5,
+                            Name = "IOS"
+                        },
+                        new
+                        {
+                            KnowledgeId = 6,
+                            Name = "HTML"
+                        },
+                        new
+                        {
+                            KnowledgeId = 7,
+                            Name = "CSS"
+                        },
+                        new
+                        {
+                            KnowledgeId = 8,
+                            Name = "Bootstrap"
+                        },
+                        new
+                        {
+                            KnowledgeId = 9,
+                            Name = "Jquery"
+                        },
+                        new
+                        {
+                            KnowledgeId = 10,
+                            Name = "AngularJs 1.*"
+                        },
+                        new
+                        {
+                            KnowledgeId = 11,
+                            Name = "Angular"
+                        },
+                        new
+                        {
+                            KnowledgeId = 12,
+                            Name = "Java"
+                        },
+                        new
+                        {
+                            KnowledgeId = 13,
+                            Name = "Asp.Net MVC"
+                        },
+                        new
+                        {
+                            KnowledgeId = 14,
+                            Name = "Asp.Net WebForm"
+                        },
+                        new
+                        {
+                            KnowledgeId = 15,
+                            Name = "C"
+                        },
+                        new
+                        {
+                            KnowledgeId = 16,
+                            Name = "C#"
+                        },
+                        new
+                        {
+                            KnowledgeId = 17,
+                            Name = "NodeJS"
+                        },
+                        new
+                        {
+                            KnowledgeId = 18,
+                            Name = "Cake"
+                        },
+                        new
+                        {
+                            KnowledgeId = 19,
+                            Name = "Django"
+                        },
+                        new
+                        {
+                            KnowledgeId = 20,
+                            Name = "Majento"
+                        },
+                        new
+                        {
+                            KnowledgeId = 21,
+                            Name = "PHP"
+                        },
+                        new
+                        {
+                            KnowledgeId = 22,
+                            Name = "Vue"
+                        },
+                        new
+                        {
+                            KnowledgeId = 23,
+                            Name = "Wordpress"
+                        },
+                        new
+                        {
+                            KnowledgeId = 24,
+                            Name = "Phyton"
+                        },
+                        new
+                        {
+                            KnowledgeId = 25,
+                            Name = "Ruby"
+                        },
+                        new
+                        {
+                            KnowledgeId = 26,
+                            Name = "My SQL Server"
+                        },
+                        new
+                        {
+                            KnowledgeId = 27,
+                            Name = "My SQL"
+                        },
+                        new
+                        {
+                            KnowledgeId = 28,
+                            Name = "Salesforce"
+                        },
+                        new
+                        {
+                            KnowledgeId = 29,
+                            Name = "Photoshop"
+                        },
+                        new
+                        {
+                            KnowledgeId = 30,
+                            Name = "Illustrator"
+                        },
+                        new
+                        {
+                            KnowledgeId = 31,
+                            Name = "SEO"
+                        },
+                        new
+                        {
+                            KnowledgeId = 32,
+                            Name = "Laravel"
+                        });
                 });
 
             modelBuilder.Entity("TPDomain.Models.WorkingTime", b =>
                 {
                     b.Property<int>("WorkingTimeId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnName("wot_id")
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -197,6 +378,33 @@ namespace TPData.Migrations
                     b.HasKey("WorkingTimeId");
 
                     b.ToTable("tb_working_time");
+
+                    b.HasData(
+                        new
+                        {
+                            WorkingTimeId = 1,
+                            Description = "Morning (from 08:00 to 12:00) / Manhã (de 08:00 ás 12:00)"
+                        },
+                        new
+                        {
+                            WorkingTimeId = 2,
+                            Description = "Afternoon (from 1:00 p.m. to 6:00 p.m.) / Tarde (de 13:00 ás 18:00)"
+                        },
+                        new
+                        {
+                            WorkingTimeId = 3,
+                            Description = "Night (7:00 p.m. to 10:00 p.m.) /Noite (de 19:00 as 22:00)"
+                        },
+                        new
+                        {
+                            WorkingTimeId = 4,
+                            Description = "Dawn (from 10 p.m. onwards) / Madrugada (de 22:00 em diante)"
+                        },
+                        new
+                        {
+                            WorkingTimeId = 5,
+                            Description = "Business (from 08:00 a.m. to 06:00 p.m.) / Comercial (de 08:00 as 18:00)"
+                        });
                 });
 
             modelBuilder.Entity("TPDomain.Models.DeveloperAvailability", b =>

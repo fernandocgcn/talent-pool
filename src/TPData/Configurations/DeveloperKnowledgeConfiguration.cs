@@ -12,7 +12,8 @@ namespace TPData.Configurations
 
             builder.Property(entity => entity.DeveloperKnowledgeId)
                 .HasColumnName("dek_id")
-                .IsRequired();
+                .IsRequired()
+                .ValueGeneratedNever();
             builder.Property(entity => entity.Rate)
                 .HasColumnName("dek_rate")
                 .IsRequired();
