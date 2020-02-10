@@ -1,43 +1,85 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Developer } from '../../view-models/developer';
+import { Developer } from '../../models/developer';
+import { DeveloperService } from '../../services/developer.service';
+import { EntityListService } from '../../services/entity-list.service';
+import { Availability } from '../../models/availability';
+import { WorkingTime } from '../../models/working-time';
 
 @Component({
-  selector: 'app-lst-dev',
-  templateUrl: './lst-dev.component.html',
-  styleUrls: ['./lst-dev.component.css']
+  selector: 'lst-dev',
+  templateUrl: './lst-dev.component.html'
 })
 export class LstDevComponent implements OnInit {
   public developers: Developer[];
 
-  constructor(private httpClient: HttpClient,
-    @Inject('BASE_URL') private baseUrl: string,
-    private router: Router) { }
+  private availabilities: Availability[];
+  private workingTimes: WorkingTime[];
 
-  ngOnInit(): void {
-    this.httpClient.get(this.baseUrl + 'developer')
-      .toPromise()
-      .then((result: Developer[]) => this.developers = result)
-      .catch(httpError => console.error(httpError));
+  constructor(private router: Router,
+              private developerService: DeveloperService,
+              private entityListService: EntityListService) { }
+
+  public ngOnInit(): void {
+    this.developerService.getAll()
+      .subscribe(
+        result => this.developers = result,
+        errorMessage => alert(errorMessage)
+    );
+    this.entityListService.getAvailabilities()
+      .subscribe(
+        result => this.availabilities = result,
+        errorMessage => alert(errorMessage)
+    );
+    this.entityListService.getWorkingTimes()
+      .subscribe(
+        result => this.workingTimes = result,
+        errorMessage => alert(errorMessage)
+    );
   }
 
-  add(): void {
-    this.router.navigate(['frm-dev'],
-      { state: { developer: new Developer } });
-  }
-
-  update(dev: Developer): void {
-    this.router.navigate(['frm-dev'],
-      { state: { developer: dev } });
-  }
-
-  delete(dev: Developer): void {
-    if (confirm('Você realmente deseja excluir o Desenvolvedor?')) {
-      this.httpClient.delete(this.baseUrl + `developer/${dev.developerId}`)
-        .toPromise()
-        .then(result => this.developers.splice(this.developers.indexOf(dev), 1))
-        .catch(httpError => console.log(httpError));
+  public delete(dev: Developer): void {
+    if (confirm(`Você realmente deseja excluir o Desenvolvedor '${dev.name}'?`)) {
+      this.developerService.delete(dev.developerId)
+        .subscribe(
+          () => {
+            this.developers.splice(this.developers.indexOf(dev), 1);
+            alert(`Desenvolvedor '${dev.name}' excluído com sucesso!`);
+          },
+          errorMessage => alert(errorMessage)
+        );
     }
+  }
+
+  public add(): void {
+    this.router.navigate(['frm-dev'],
+      {
+        state: {
+          developer: {} as Developer,
+          devAvailabilities: new Array<Availability>(),
+          devWorkingTimes: new Array<WorkingTime>(),
+          availabilities: this.availabilities,
+          workingTimes: this.workingTimes,
+        }
+      });
+  }
+
+  public update(developer: Developer): void {
+    this.developerService.get(developer)
+      .toPromise()
+      .then(developerDto =>
+      {
+        this.router.navigate(['frm-dev'],
+          {
+            state: {
+              developer,
+              devAvailabilities: developerDto.availabilities,
+              devWorkingTimes: developerDto.workingTimes,
+              availabilities: this.availabilities,
+              workingTimes: this.workingTimes,
+            }
+          })
+      })
+      .catch(errorMessage => alert(errorMessage));
   }
 }

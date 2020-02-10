@@ -1,8 +1,8 @@
-﻿using TPDomain.Models;
+﻿using TPDomain.DataTransferObjects;
+using TPDomain.Models;
 using TPDomain.Services;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace TPWeb.Controllers
 {
@@ -10,35 +10,39 @@ namespace TPWeb.Controllers
     [Route("[controller]")]
     public class DeveloperController : ControllerBase
     {
-        private readonly ILogger<DeveloperController> _logger;
         private readonly IDeveloperService _developerService;
 
-        public DeveloperController(ILogger<DeveloperController> logger,
-            IDeveloperService developerService)
+        public DeveloperController(IDeveloperService developerService)
         {
-            _logger = logger;
             _developerService = developerService;
         }
 
         [HttpGet]
-        public IEnumerable<Developer> GetDevelopers()
+        public IEnumerable<Developer> GetAll()
         {
             return _developerService.GetDevelopers();
         }
 
         [HttpPost]
-        public int Save(Developer developer)
+        public int Save(DeveloperDto developerDto)
         {
-            if (developer?.DeveloperId == 0)
-                return _developerService.Add(developer);
+            if (developerDto?.Developer?.DeveloperId == 0)
+                return _developerService.Add(developerDto);
             else
-                return _developerService.Update(developer);
+                return _developerService.Update(developerDto);
         }
 
         [HttpDelete("{id}")]
         public int Delete(int id)
         {
             return _developerService.Delete(id);
+        }
+
+        [HttpGet]
+        [Route("id/{id}")]
+        public DeveloperDto GetDeveloper(int id)
+        {
+            return _developerService.GetDeveloperDto(id);
         }
     }
 }

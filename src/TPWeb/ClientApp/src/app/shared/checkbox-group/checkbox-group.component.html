@@ -1,0 +1,10 @@
+<div [formGroup]="cbFormGroup">
+  <div formArrayName="{{ controlName }}"
+         *ngFor="let item of items.controls; index as i">
+    <label>
+      <input type="checkbox" [formControlName]="i" />
+      {{ options[i].label }}
+    </label>
+    <br />
+  </div>
+</div>

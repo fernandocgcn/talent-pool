@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 
 namespace EntityFramework.Data
@@ -28,5 +29,7 @@ namespace EntityFramework.Data
         void Attach<T>(T detachedEntity) where T : class;
 
         int Commit();
+
+        DbSet<T> GetDbSet<T>() where T : class;
     }
 }

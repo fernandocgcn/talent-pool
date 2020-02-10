@@ -2,6 +2,7 @@ using Kernel.Extensions;
 using EntityFramework.Data;
 using EntityFramework.Validations;
 using EntityFramework.Resources;
+using TPDomain.DataTransferObjects;
 using TPDomain.Models;
 using TPDomain.Services;
 using TPDomain.Resources;
@@ -38,6 +39,31 @@ namespace TPDomainTests.ServicesTests
             }
 
         };
+
+        private readonly WorkingTime[] _workingTimes =
+        {
+            new WorkingTime
+            {
+                WorkingTimeId = 1,
+                Description = "Morning (from 08:00 to 12:00) / Manhã (de 08:00 ás 12:00)"
+            },
+            new WorkingTime
+            {
+                WorkingTimeId = 2,
+                Description = "Afternoon (from 1:00 p.m. to 6:00 p.m.) / Tarde (de 13:00 ás 18:00)"
+            },
+            new WorkingTime
+            {
+                WorkingTimeId = 3,
+                Description = "Night (7:00 p.m. to 10:00 p.m.) /Noite (de 19:00 as 22:00)"
+            }
+
+        };
+
+        private int GetAllRows()
+        {
+            return 1 + _availabilities.Length + _workingTimes.Length;
+        }
 
         public DeveloperServiceTests()
         {
@@ -84,7 +110,7 @@ namespace TPDomainTests.ServicesTests
                     .SetValue(developer, emptyValue);
 
                 var exception = Assert.ThrowsException<ValidationException>
-                    (() => _developerService.Add(developer, _availabilities));
+                    (() => _developerService.Add(new DeveloperDto { Developer = developer, Availabilities = _availabilities, WorkingTimes = _workingTimes }));
 
                 Assert.AreEqual(exception.Message,
                     typeof(DataMessages).GetMessage("ErrorMessage_Required",
@@ -95,7 +121,7 @@ namespace TPDomainTests.ServicesTests
             }
 
             var exception = Assert.ThrowsException<ValidationException>
-                    (() => _developerService.Add(developer, Array.Empty<Availability>()));
+                    (() => _developerService.Add(new DeveloperDto { Developer = developer, Availabilities = Array.Empty<Availability>(), WorkingTimes = _workingTimes }));
         }
 
         [TestMethod]
@@ -111,10 +137,10 @@ namespace TPDomainTests.ServicesTests
                 Salary = 112.92M,
                 Email = "email@email.com"
             };
-            _developerService.Add(developer, _availabilities);
+            _developerService.Add(new DeveloperDto { Developer = developer, Availabilities = _availabilities, WorkingTimes = _workingTimes });
 
             var exception = Assert.ThrowsException<ValidationException>
-                (() => _developerService.Add(developer, _availabilities));
+                (() => _developerService.Add(new DeveloperDto { Developer = developer, Availabilities = _availabilities, WorkingTimes = _workingTimes }));
 
             Assert.AreEqual(exception.Message, 
                 typeof(DataMessages).GetMessage("ErrorMessage_RecordFound"));
@@ -133,7 +159,7 @@ namespace TPDomainTests.ServicesTests
                 Salary = 111.11M,
                 Email = "email@email.com"
             };
-            _developerService.Add(developer1, _availabilities);
+            _developerService.Add(new DeveloperDto { Developer = developer1, Availabilities = _availabilities, WorkingTimes = _workingTimes });
 
             var developer2 = new Developer
             {
@@ -147,7 +173,7 @@ namespace TPDomainTests.ServicesTests
             };
 
             Assert.ThrowsException<DbUpdateException>
-                (() => _developerService.Add(developer2, _availabilities));
+                (() => _developerService.Add(new DeveloperDto { Developer = developer2, Availabilities = _availabilities, WorkingTimes = _workingTimes }));
         }
 
         [TestMethod]
@@ -179,7 +205,7 @@ namespace TPDomainTests.ServicesTests
             };
 
             Assert.ThrowsException<InvalidOperationException>
-                (() => _developerService.Add(developer, availabilities));
+                (() => _developerService.Add(new DeveloperDto { Developer = developer, Availabilities = availabilities, WorkingTimes = _workingTimes }));
         }
 
         [TestMethod]
@@ -196,9 +222,9 @@ namespace TPDomainTests.ServicesTests
                 Email = "email@email.com"
             };
 
-            int affectedRows = _developerService.Add(developer, _availabilities);
+            int affectedRows = _developerService.Add(new DeveloperDto { Developer = developer, Availabilities = _availabilities, WorkingTimes = _workingTimes });
 
-            Assert.AreEqual(1 + _availabilities.Length, affectedRows);
+            Assert.AreEqual(GetAllRows(), affectedRows);
             Assert.IsTrue(developer.DeveloperId > 0);
         }
 
@@ -225,7 +251,7 @@ namespace TPDomainTests.ServicesTests
                 Salary = 112.92M,
                 Email = "email@email.com"
             };
-            _developerService.Add(developer, _availabilities);
+            _developerService.Add(new DeveloperDto { Developer = developer, Availabilities = _availabilities, WorkingTimes = _workingTimes });
 
             var developerWithGet = _developerService.Get(developer.DeveloperId);
 
@@ -268,7 +294,7 @@ namespace TPDomainTests.ServicesTests
                     Email = "email3@email.com"
                 },
             };
-            developers.ForEach(dev => _developerService.Add(dev, _availabilities));
+            developers.ForEach(dev => _developerService.Add(new DeveloperDto { Developer = dev, Availabilities = _availabilities, WorkingTimes = _workingTimes }));
 
             var developersWithGet = _developerService.GetDevelopers();
 
@@ -303,13 +329,13 @@ namespace TPDomainTests.ServicesTests
                 Salary = 112.92M,
                 Email = "email@email.com"
             };
-            _developerService.Add(developer, _availabilities);
+            _developerService.Add(new DeveloperDto { Developer = developer, Availabilities = _availabilities, WorkingTimes = _workingTimes });
             int id = developer.DeveloperId;
 
             int affectedRows = _developerService.Delete(id);
             developer = _developerService.Get(id);
 
-            Assert.AreEqual(1 + _availabilities.Length, affectedRows);
+            Assert.AreEqual(GetAllRows(), affectedRows);
             Assert.IsNull(developer);
         }
 
@@ -326,7 +352,7 @@ namespace TPDomainTests.ServicesTests
                 Salary = 112.92M,
                 Email = "email@email.com"
             };
-            _developerService.Add(developer, _availabilities);
+            _developerService.Add(new DeveloperDto { Developer = developer, Availabilities = _availabilities, WorkingTimes = _workingTimes });
 
             TestRequiredProperty(nameof(developer.Name), null);
 
@@ -351,7 +377,7 @@ namespace TPDomainTests.ServicesTests
                     .SetValue(developer, emptyValue);
 
                 var exception = Assert.ThrowsException<ValidationException>
-                    (() => _developerService.Update(developer, _availabilities));
+                    (() => _developerService.Update(new DeveloperDto { Developer = developer, Availabilities = _availabilities, WorkingTimes = _workingTimes }));
 
                 Assert.AreEqual(exception.Message,
                     typeof(DataMessages).GetMessage("ErrorMessage_Required",
@@ -362,7 +388,7 @@ namespace TPDomainTests.ServicesTests
             }
 
             var exception = Assert.ThrowsException<ValidationException>
-                    (() => _developerService.Update(developer, Array.Empty<Availability>()));
+                    (() => _developerService.Update(new DeveloperDto { Developer = developer, Availabilities = Array.Empty<Availability>(), WorkingTimes = _workingTimes }));
         }
 
         [TestMethod]
@@ -381,7 +407,7 @@ namespace TPDomainTests.ServicesTests
             };
 
             var exception = Assert.ThrowsException<ValidationException>
-                (() => _developerService.Update(developer, _availabilities));
+                (() => _developerService.Update(new DeveloperDto { Developer = developer, Availabilities = _availabilities, WorkingTimes = _workingTimes }));
 
             Assert.AreEqual(exception.Message, 
                 typeof(DataMessages).GetMessage("ErrorMessage_RecordNotFound"));
@@ -400,7 +426,7 @@ namespace TPDomainTests.ServicesTests
                 Salary = 111.11M,
                 Email = "email1@email.com"
             };
-            _developerService.Add(developer1, _availabilities);
+            _developerService.Add(new DeveloperDto { Developer = developer1, Availabilities = _availabilities, WorkingTimes = _workingTimes });
 
             var developer2 = new Developer
             {
@@ -412,12 +438,12 @@ namespace TPDomainTests.ServicesTests
                 Salary = 222.22M,
                 Email = "email2@email.com"
             };
-            _developerService.Add(developer2, _availabilities);
+            _developerService.Add(new DeveloperDto { Developer = developer2, Availabilities = _availabilities, WorkingTimes = _workingTimes });
 
             developer2.Email = developer1.Email;
 
             Assert.ThrowsException<DbUpdateException>
-                (() => _developerService.Update(developer2, _availabilities));
+                (() => _developerService.Update(new DeveloperDto { Developer = developer2, Availabilities = _availabilities, WorkingTimes = _workingTimes }));
         }
 
         [TestMethod]
@@ -433,11 +459,11 @@ namespace TPDomainTests.ServicesTests
                 Salary = 112.92M,
                 Email = "email@email.com"
             };
-            _developerService.Add(developer, _availabilities);
+            _developerService.Add(new DeveloperDto { Developer = developer, Availabilities = _availabilities, WorkingTimes = _workingTimes });
 
             developer.Name = "Name2";
             developer.Email = "email2@email.com";
-            int affectedRows = _developerService.Update(developer, _availabilities);
+            int affectedRows = _developerService.Update(new DeveloperDto { Developer = developer, Availabilities = _availabilities, WorkingTimes = _workingTimes });
             var developerWithGet = _developerService.Get(developer.DeveloperId);
 
             Assert.AreEqual(1, affectedRows);

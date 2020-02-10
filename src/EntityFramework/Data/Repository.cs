@@ -181,5 +181,10 @@ namespace EntityFramework.Data
         {
             return _dbContext.SaveChanges();
         }
+
+        public DbSet<T> GetDbSet<T>() where T : class
+        {
+            return _dbContext.Set<T>();
+        }
     }
 }

@@ -1,9 +1,10 @@
-export class Developer {
+export interface Developer {
   developerId: number;
   email: string;
   name: string;
   city: string;
   state: string;
+  skype: string;
   whatsapp: string;
   salary: string;
   linkedIn: string;
