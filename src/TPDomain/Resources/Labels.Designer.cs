@@ -61,6 +61,15 @@ namespace TPDomain.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Disponibilidade.
+        /// </summary>
+        public static string Availability {
+            get {
+                return ResourceManager.GetString("Availability", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Cidade.
         /// </summary>
         public static string City {
@@ -75,6 +84,15 @@ namespace TPDomain.Resources {
         public static string CrudLink {
             get {
                 return ResourceManager.GetString("CrudLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Desenvolvedor.
+        /// </summary>
+        public static string Developer {
+            get {
+                return ResourceManager.GetString("Developer", resourceCulture);
             }
         }
         
@@ -156,6 +174,15 @@ namespace TPDomain.Resources {
         public static string Whatsapp {
             get {
                 return ResourceManager.GetString("Whatsapp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Hora para Trabalhar.
+        /// </summary>
+        public static string WorkingTime {
+            get {
+                return ResourceManager.GetString("WorkingTime", resourceCulture);
             }
         }
     }
