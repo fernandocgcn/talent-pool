@@ -167,14 +167,10 @@ namespace EntityFramework.Data
             return includes.ToArray();
         }
 
-        public void Detach<T>(T attachedEntity) where T : class
+        public void Detach<T>(T entity) where T : class
         {
-            _dbContext.Entry(attachedEntity).State = EntityState.Detached;
-        }
-
-        public void Attach<T>(T detachedEntity) where T : class
-        {
-            _dbContext.Attach(detachedEntity);
+            if (entity != null)
+                _dbContext.Entry(entity).State = EntityState.Detached;
         }
 
         public int Commit()

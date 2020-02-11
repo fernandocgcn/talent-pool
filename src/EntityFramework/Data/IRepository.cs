@@ -24,9 +24,7 @@ namespace EntityFramework.Data
 
         void Update<T>(T attachedEntity) where T : class;
 
-        void Detach<T>(T attachedEntity) where T : class;
-
-        void Attach<T>(T detachedEntity) where T : class;
+        void Detach<T>(T entity) where T : class;
 
         int Commit();
 
