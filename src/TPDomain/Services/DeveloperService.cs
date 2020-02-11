@@ -71,99 +71,82 @@ namespace TPDomain.Services
 
         public int Add(DeveloperDto developerDto)
         {
-            if (developerDto == null)
-                throw new ArgumentNullException(nameof(developerDto));
-            _dataAnnotationValidator.Validate(developerDto.Developer);
-
-            var existingDeveloper = _repository.GetByKey<Developer>(developerDto.Developer.DeveloperId);
-            if (existingDeveloper != null)
-            {
-                throw new ValidationException(typeof(DataMessages).GetMessage("ErrorMessage_RecordFound"));
-            }
-            if (developerDto.Availabilities == null || developerDto.Availabilities.Count == 0)
-            {
-                throw new ValidationException(typeof(DataMessages).GetMessage("ErrorMessage_Required", "Disponibilidades"));
-            }
-            if (developerDto.WorkingTimes == null || developerDto.WorkingTimes.Count == 0)
-            {
-                throw new ValidationException(typeof(DataMessages).GetMessage("ErrorMessage_Required", "Horários para Trabalhar"));
-            }
-
+            _dataAnnotationValidator.Validate(developerDto?.Developer);
             _repository.Add(developerDto.Developer);
-            foreach (var availability in developerDto.Availabilities)
+
+            int index = 0;
+            do
             {
-                _repository.Attach(availability);
-                _repository.Add(
-                    new DeveloperAvailability()
-                    {
-                        Availability = availability,
-                        Developer = developerDto.Developer
-                    });
-            }
-            foreach (var workingTime in developerDto.WorkingTimes)
+                var availability=
+                    developerDto.Availabilities?.ElementAtOrDefault(index++);
+                Add(developerDto.Developer, availability);
+            } while (index < developerDto.Availabilities?.Count);
+
+            index = 0;
+            do
             {
-                _repository.Attach(workingTime);
-                _repository.Add(
-                    new DeveloperWorkingTime()
-                    {
-                        WorkingTime = workingTime,
-                        Developer = developerDto.Developer
-                    });
-            }
+                var workingTime =
+                    developerDto.WorkingTimes?.ElementAtOrDefault(index++);
+                Add(developerDto.Developer, workingTime);
+            } while (index < developerDto.WorkingTimes?.Count);
 
             return _repository.Commit();
         }
 
         public int Update(DeveloperDto developerDto)
         {
-            if (developerDto == null)
-                throw new ArgumentNullException(nameof(developerDto));
-            _repository.Detach(developerDto.Developer);
-            _dataAnnotationValidator.Validate(developerDto.Developer);
-
+            _dataAnnotationValidator.Validate(developerDto?.Developer);
+            _repository.Detach(developerDto?.Developer);
             var existingDeveloper = _repository.GetByKey<Developer>(developerDto.Developer.DeveloperId);
-            if (existingDeveloper == null)
-            {
-                throw new ValidationException(typeof(DataMessages).GetMessage("ErrorMessage_RecordNotFound"));
-            }
-            if (developerDto.Availabilities == null || developerDto.Availabilities.Count == 0)
-            {
-                throw new ValidationException(typeof(DataMessages).GetMessage("ErrorMessage_Required", "Disponibilidades"));
-            }
-            if (developerDto.WorkingTimes == null || developerDto.WorkingTimes.Count == 0)
-            {
-                throw new ValidationException(typeof(DataMessages).GetMessage("ErrorMessage_Required", "Horários para Trabalhar"));
-            }
-
             _repository.Overwrite(existingDeveloper, developerDto.Developer);
 
             _repository.Delete<DeveloperAvailability>
-                (da => da.Developer.Equals(existingDeveloper));
-            foreach (var availability in developerDto.Availabilities)
+                (da => existingDeveloper.Equals(da.Developer));
+            int index = 0;
+            do
             {
-                _repository.Attach(availability);
-                _repository.Add(
-                    new DeveloperAvailability()
-                    {
-                        Availability = availability,
-                        Developer = existingDeveloper
-                    });
-            }
+                var availability =
+                    developerDto.Availabilities?.ElementAtOrDefault(index++);
+                Add(existingDeveloper, availability);
+            } while (index < developerDto.Availabilities?.Count);
 
             _repository.Delete<DeveloperWorkingTime>
-                (da => da.Developer.Equals(existingDeveloper));
-            foreach (var workingTime in developerDto.WorkingTimes)
+                (da => existingDeveloper.Equals(da.Developer));
+            index = 0;
+            do
             {
-                _repository.Attach(workingTime);
-                _repository.Add(
-                    new DeveloperWorkingTime()
-                    {
-                        WorkingTime = workingTime,
-                        Developer = existingDeveloper
-                    });
-            }
+                var workingTime =
+                    developerDto.WorkingTimes?.ElementAtOrDefault(index++);
+                Add(existingDeveloper, workingTime);
+            } while (index < developerDto.WorkingTimes?.Count);
 
             return _repository.Commit();
+        }
+
+        private void Add(Developer developer, Availability availability)
+        {
+            var developerAvailability =
+                new DeveloperAvailability()
+                {
+                    Availability = _repository.GetByKey<Availability>
+                        (availability?.AvailabilityId),
+                    Developer = developer
+                };
+            _dataAnnotationValidator.Validate(developerAvailability);
+            _repository.Add(developerAvailability);
+        }
+
+        private void Add(Developer developer, WorkingTime workingTime)
+        {
+            var developerWorkingTime =
+                new DeveloperWorkingTime()
+                {
+                    WorkingTime = _repository.GetByKey<WorkingTime>
+                        (workingTime?.WorkingTimeId),
+                    Developer = developer
+                };
+            _dataAnnotationValidator.Validate(developerWorkingTime);
+            _repository.Add(developerWorkingTime);
         }
     }
 }

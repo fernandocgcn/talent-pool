@@ -9,7 +9,6 @@ using TPDomain.Resources;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.Linq;
 using System;
 
@@ -110,7 +109,10 @@ namespace TPDomainTests.ServicesTests
                     .SetValue(developer, emptyValue);
 
                 var exception = Assert.ThrowsException<ValidationException>
-                    (() => _developerService.Add(new DeveloperDto { Developer = developer, Availabilities = _availabilities, WorkingTimes = _workingTimes }));
+                    (() => _developerService.Add(new DeveloperDto { 
+                        Developer = developer, 
+                        Availabilities = _availabilities, 
+                        WorkingTimes = _workingTimes }));
 
                 Assert.AreEqual(exception.Message,
                     typeof(DataMessages).GetMessage("ErrorMessage_Required",
@@ -121,29 +123,22 @@ namespace TPDomainTests.ServicesTests
             }
 
             var exception = Assert.ThrowsException<ValidationException>
-                    (() => _developerService.Add(new DeveloperDto { Developer = developer, Availabilities = Array.Empty<Availability>(), WorkingTimes = _workingTimes }));
-        }
+                    (() => _developerService.Add(new DeveloperDto { 
+                        Developer = developer, 
+                        Availabilities = Array.Empty<Availability>(), 
+                        WorkingTimes = _workingTimes }));
+            Assert.AreEqual(exception.Message,
+                    typeof(DataMessages).GetMessage("ErrorMessage_Required",
+                    typeof(Labels).GetMessage(nameof(Availability))));
 
-        [TestMethod]
-        public void AddExistentDevShouldReturnRecordFoundExceptionMessage()
-        {
-            var developer = new Developer
-            {
-                Name = "Name",
-                City = "City",
-                State = "State",
-                Skype = "Skype",
-                Whatsapp = "Whatsapp",
-                Salary = 112.92M,
-                Email = "email@email.com"
-            };
-            _developerService.Add(new DeveloperDto { Developer = developer, Availabilities = _availabilities, WorkingTimes = _workingTimes });
-
-            var exception = Assert.ThrowsException<ValidationException>
-                (() => _developerService.Add(new DeveloperDto { Developer = developer, Availabilities = _availabilities, WorkingTimes = _workingTimes }));
-
-            Assert.AreEqual(exception.Message, 
-                typeof(DataMessages).GetMessage("ErrorMessage_RecordFound"));
+            exception = Assert.ThrowsException<ValidationException>
+                    (() => _developerService.Add(new DeveloperDto { 
+                        Developer = developer, 
+                        Availabilities = _availabilities, 
+                        WorkingTimes = Array.Empty<WorkingTime>() }));
+            Assert.AreEqual(exception.Message,
+                    typeof(DataMessages).GetMessage("ErrorMessage_Required",
+                    typeof(Labels).GetMessage(nameof(WorkingTime))));
         }
 
         [TestMethod]
@@ -159,7 +154,10 @@ namespace TPDomainTests.ServicesTests
                 Salary = 111.11M,
                 Email = "email@email.com"
             };
-            _developerService.Add(new DeveloperDto { Developer = developer1, Availabilities = _availabilities, WorkingTimes = _workingTimes });
+            _developerService.Add(new DeveloperDto { 
+                Developer = developer1, 
+                Availabilities = _availabilities, 
+                WorkingTimes = _workingTimes });
 
             var developer2 = new Developer
             {
@@ -173,11 +171,14 @@ namespace TPDomainTests.ServicesTests
             };
 
             Assert.ThrowsException<DbUpdateException>
-                (() => _developerService.Add(new DeveloperDto { Developer = developer2, Availabilities = _availabilities, WorkingTimes = _workingTimes }));
+                (() => _developerService.Add(new DeveloperDto { 
+                    Developer = developer2, 
+                    Availabilities = _availabilities, 
+                    WorkingTimes = _workingTimes }));
         }
 
         [TestMethod]
-        public void AddRepeatedAvailabilityShouldReturnDbUpdateException()
+        public void AddRepeatedAvailabilityShouldReturnInvalidOperationException()
         {
             Availability[] availabilities =
             {
@@ -205,7 +206,10 @@ namespace TPDomainTests.ServicesTests
             };
 
             Assert.ThrowsException<InvalidOperationException>
-                (() => _developerService.Add(new DeveloperDto { Developer = developer, Availabilities = availabilities, WorkingTimes = _workingTimes }));
+                (() => _developerService.Add(new DeveloperDto { 
+                    Developer = developer, 
+                    Availabilities = availabilities, 
+                    WorkingTimes = _workingTimes }));
         }
 
         [TestMethod]
@@ -222,7 +226,10 @@ namespace TPDomainTests.ServicesTests
                 Email = "email@email.com"
             };
 
-            int affectedRows = _developerService.Add(new DeveloperDto { Developer = developer, Availabilities = _availabilities, WorkingTimes = _workingTimes });
+            int affectedRows = _developerService.Add(new DeveloperDto { 
+                Developer = developer, 
+                Availabilities = _availabilities, 
+                WorkingTimes = _workingTimes });
 
             Assert.AreEqual(GetAllRows(), affectedRows);
             Assert.IsTrue(developer.DeveloperId > 0);
@@ -251,17 +258,28 @@ namespace TPDomainTests.ServicesTests
                 Salary = 112.92M,
                 Email = "email@email.com"
             };
-            _developerService.Add(new DeveloperDto { Developer = developer, Availabilities = _availabilities, WorkingTimes = _workingTimes });
+            _developerService.Add(new DeveloperDto { 
+                Developer = developer, 
+                Availabilities = _availabilities, 
+                WorkingTimes = _workingTimes });
 
             var developerWithGet = _developerService.Get(developer.DeveloperId);
+            var developerDto = _developerService.GetDeveloperDto(developer.DeveloperId);
 
             Assert.AreEqual(developerWithGet, developer);
+            Assert.AreEqual(developerDto.Developer, developer);
+            Assert.IsTrue(
+                _availabilities.All(dev => developerDto.Availabilities.Contains(dev))
+                && _availabilities.Length == developerDto.Availabilities.Count);
+            Assert.IsTrue(
+                _workingTimes.All(dev => developerDto.WorkingTimes.Contains(dev))
+                && _workingTimes.Length == developerDto.WorkingTimes.Count);
         }
 
         [TestMethod]
         public void GetDevelopers()
         {
-            var developers = new List<Developer>
+            Developer[] developers =
             {
                 new Developer
                 {
@@ -294,13 +312,18 @@ namespace TPDomainTests.ServicesTests
                     Email = "email3@email.com"
                 },
             };
-            developers.ForEach(dev => _developerService.Add(new DeveloperDto { Developer = dev, Availabilities = _availabilities, WorkingTimes = _workingTimes }));
+            Array.ForEach(developers, dev => _developerService.Add(
+                new DeveloperDto { 
+                    Developer = dev, 
+                    Availabilities = 
+                    _availabilities, 
+                    WorkingTimes = _workingTimes }));
 
             var developersWithGet = _developerService.GetDevelopers();
 
             Assert.IsTrue(
                 developers.All(dev => developersWithGet.Contains(dev))
-                && developers.Count == developersWithGet.Count
+                && developers.Length == developersWithGet.Count
             );
         }
 
@@ -329,7 +352,10 @@ namespace TPDomainTests.ServicesTests
                 Salary = 112.92M,
                 Email = "email@email.com"
             };
-            _developerService.Add(new DeveloperDto { Developer = developer, Availabilities = _availabilities, WorkingTimes = _workingTimes });
+            _developerService.Add(new DeveloperDto { 
+                Developer = developer, 
+                Availabilities = _availabilities, 
+                WorkingTimes = _workingTimes });
             int id = developer.DeveloperId;
 
             int affectedRows = _developerService.Delete(id);
@@ -352,7 +378,10 @@ namespace TPDomainTests.ServicesTests
                 Salary = 112.92M,
                 Email = "email@email.com"
             };
-            _developerService.Add(new DeveloperDto { Developer = developer, Availabilities = _availabilities, WorkingTimes = _workingTimes });
+            _developerService.Add(new DeveloperDto { 
+                Developer = developer, 
+                Availabilities = _availabilities, 
+                WorkingTimes = _workingTimes });
 
             TestRequiredProperty(nameof(developer.Name), null);
 
@@ -377,7 +406,10 @@ namespace TPDomainTests.ServicesTests
                     .SetValue(developer, emptyValue);
 
                 var exception = Assert.ThrowsException<ValidationException>
-                    (() => _developerService.Update(new DeveloperDto { Developer = developer, Availabilities = _availabilities, WorkingTimes = _workingTimes }));
+                    (() => _developerService.Update(new DeveloperDto { 
+                        Developer = developer, 
+                        Availabilities = _availabilities, 
+                        WorkingTimes = _workingTimes }));
 
                 Assert.AreEqual(exception.Message,
                     typeof(DataMessages).GetMessage("ErrorMessage_Required",
@@ -388,15 +420,32 @@ namespace TPDomainTests.ServicesTests
             }
 
             var exception = Assert.ThrowsException<ValidationException>
-                    (() => _developerService.Update(new DeveloperDto { Developer = developer, Availabilities = Array.Empty<Availability>(), WorkingTimes = _workingTimes }));
+                    (() => _developerService.Update(new DeveloperDto { 
+                        Developer = developer, 
+                        Availabilities = Array.Empty<Availability>(), 
+                        WorkingTimes = _workingTimes }));
+            Assert.AreEqual(exception.Message,
+                    typeof(DataMessages).GetMessage("ErrorMessage_Required",
+                    typeof(Labels).GetMessage(nameof(Availability))));
+
+            exception = Assert.ThrowsException<ValidationException>
+                    (() => _developerService.Update(new DeveloperDto
+                    {
+                        Developer = developer,
+                        Availabilities = _availabilities,
+                        WorkingTimes = Array.Empty<WorkingTime>()
+                    }));
+            Assert.AreEqual(exception.Message,
+                    typeof(DataMessages).GetMessage("ErrorMessage_Required",
+                    typeof(Labels).GetMessage(nameof(WorkingTime))));
         }
 
         [TestMethod]
-        public void UpdateNonexistentDevShouldReturnRecordNotFoundExceptionMessage()
+        public void UpdateNonexistentDevShouldReturnArgumentNullException()
         {
             var developer = new Developer
             {
-                DeveloperId = -1,
+                DeveloperId = 1,
                 Name = "Name",
                 City = "City",
                 State = "State",
@@ -406,11 +455,11 @@ namespace TPDomainTests.ServicesTests
                 Email = "email@email.com"
             };
 
-            var exception = Assert.ThrowsException<ValidationException>
-                (() => _developerService.Update(new DeveloperDto { Developer = developer, Availabilities = _availabilities, WorkingTimes = _workingTimes }));
-
-            Assert.AreEqual(exception.Message, 
-                typeof(DataMessages).GetMessage("ErrorMessage_RecordNotFound"));
+            var exception = Assert.ThrowsException<ArgumentNullException>
+                (() => _developerService.Update(new DeveloperDto { 
+                    Developer = developer, 
+                    Availabilities = _availabilities, 
+                    WorkingTimes = _workingTimes }));
         }
 
         [TestMethod]
@@ -426,7 +475,10 @@ namespace TPDomainTests.ServicesTests
                 Salary = 111.11M,
                 Email = "email1@email.com"
             };
-            _developerService.Add(new DeveloperDto { Developer = developer1, Availabilities = _availabilities, WorkingTimes = _workingTimes });
+            _developerService.Add(new DeveloperDto { 
+                Developer = developer1, 
+                Availabilities = _availabilities, 
+                WorkingTimes = _workingTimes });
 
             var developer2 = new Developer
             {
@@ -438,12 +490,18 @@ namespace TPDomainTests.ServicesTests
                 Salary = 222.22M,
                 Email = "email2@email.com"
             };
-            _developerService.Add(new DeveloperDto { Developer = developer2, Availabilities = _availabilities, WorkingTimes = _workingTimes });
+            _developerService.Add(new DeveloperDto { 
+                Developer = developer2, 
+                Availabilities = _availabilities, 
+                WorkingTimes = _workingTimes });
 
             developer2.Email = developer1.Email;
 
             Assert.ThrowsException<DbUpdateException>
-                (() => _developerService.Update(new DeveloperDto { Developer = developer2, Availabilities = _availabilities, WorkingTimes = _workingTimes }));
+                (() => _developerService.Update(new DeveloperDto { 
+                    Developer = developer2, 
+                    Availabilities = _availabilities, 
+                    WorkingTimes = _workingTimes }));
         }
 
         [TestMethod]
@@ -459,11 +517,17 @@ namespace TPDomainTests.ServicesTests
                 Salary = 112.92M,
                 Email = "email@email.com"
             };
-            _developerService.Add(new DeveloperDto { Developer = developer, Availabilities = _availabilities, WorkingTimes = _workingTimes });
+            _developerService.Add(new DeveloperDto { 
+                Developer = developer, 
+                Availabilities = _availabilities, 
+                WorkingTimes = _workingTimes });
 
             developer.Name = "Name2";
             developer.Email = "email2@email.com";
-            int affectedRows = _developerService.Update(new DeveloperDto { Developer = developer, Availabilities = _availabilities, WorkingTimes = _workingTimes });
+            int affectedRows = _developerService.Update(new DeveloperDto { 
+                Developer = developer, 
+                Availabilities = _availabilities, 
+                WorkingTimes = _workingTimes });
             var developerWithGet = _developerService.Get(developer.DeveloperId);
 
             Assert.AreEqual(1, affectedRows);
