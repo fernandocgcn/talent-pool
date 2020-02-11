@@ -22,7 +22,8 @@ namespace TPData.Configurations
             builder.HasOne(entity => entity.WorkingTime)
                 .WithMany()
                 .HasForeignKey("wot_id")
-                .IsRequired();
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

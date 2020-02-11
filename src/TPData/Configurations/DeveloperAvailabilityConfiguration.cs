@@ -22,7 +22,8 @@ namespace TPData.Configurations
             builder.HasOne(entity => entity.Availability)
                 .WithMany()
                 .HasForeignKey("ava_id")
-                .IsRequired();
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

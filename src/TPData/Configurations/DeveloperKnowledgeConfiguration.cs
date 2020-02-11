@@ -31,7 +31,8 @@ namespace TPData.Configurations
             builder.HasOne(entity => entity.Knowledge)
                 .WithMany()
                 .HasForeignKey("kno_id")
-                .IsRequired();
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
