@@ -1,12 +1,19 @@
-﻿using System;
+﻿using EntityFramework.Resources;
+using TPDomain.Resources;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TPDomain.Models
 {
     public class DeveloperAvailability
     {
+        [Display(Name = nameof(Developer), ResourceType = typeof(Labels))]
+        [Required(ErrorMessageResourceName = "ErrorMessage_Required", ErrorMessageResourceType = typeof(DataMessages))]
         public Developer Developer { get; set; }
 
+        [Display(Name = nameof(Availability), ResourceType = typeof(Labels))]
+        [Required(ErrorMessageResourceName = "ErrorMessage_Required", ErrorMessageResourceType = typeof(DataMessages))]
         public Availability Availability { get; set; }
 
         public override bool Equals(object obj)
