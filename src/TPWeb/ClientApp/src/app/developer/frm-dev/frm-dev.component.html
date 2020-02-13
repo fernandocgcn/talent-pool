@@ -44,6 +44,7 @@
     <checkbox-group [cbFormGroup]="form" [controlName]="'availabilities'" [options]="availabilityItems" [selectedValues]="developerDto.availabilities"></checkbox-group>
     <small *ngIf="invalid(form.controls.availabilities)" style="color:red">Escolha a(s) disponibilidade(s)!</small>
   </div>
+  <hr />
   <div class="form-group required">
     <label class="control-label">What's the best time to work for you? / Pra você qual é o melhor horário para trabalhar?</label>
     <checkbox-group [cbFormGroup]="form" [controlName]="'workingTimes'" [options]="workingTimeItems" [selectedValues]="developerDto.workingTimes"></checkbox-group>
@@ -57,7 +58,7 @@
   <div class="form-group required">
     <div formArrayName="knowledges"
          *ngFor="let knowledge of form.controls.knowledges.controls; index as i">
-      <label class="control-label">{{ knowledges[i].name }}</label>
+      <label class="control-label">{{ knowledges[i].name }}:</label>
       <div [formGroupName]="i">
         <label *ngFor="let rate of rates" style="margin-right: 20px">
           <input formControlName="ratesRadio"
@@ -68,6 +69,7 @@
         </label>
       </div>
       <small *ngIf="invalid(knowledge.controls['ratesRadio'])" style="color:red">Escolha uma avaliação para {{knowledges[i].name}}!</small>
+      <hr />
     </div>
   </div>
   <button type="submit" class="btn btn-primary btn-sm">Salvar</button>&nbsp;

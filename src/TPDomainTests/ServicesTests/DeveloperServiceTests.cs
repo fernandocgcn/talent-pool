@@ -59,9 +59,38 @@ namespace TPDomainTests.ServicesTests
 
         };
 
+        private readonly KnowledgeDto[] _knowledgeDtos =
+        {
+            new KnowledgeDto(
+                new Knowledge
+                {
+                    KnowledgeId = 1,
+                    Name = "Ionic"
+                },
+                1
+            ),
+            new KnowledgeDto(
+                new Knowledge
+                {
+                    KnowledgeId = 2,
+                    Name = "ReactJS"
+                },
+                3
+            ),
+            new KnowledgeDto(
+                new Knowledge
+                {
+                    KnowledgeId = 3,
+                    Name = "React Native"
+                },
+                5
+            )
+        };
+
         private int GetAllRows()
         {
-            return 1 + _availabilities.Length + _workingTimes.Length;
+            return 1 + _availabilities.Length 
+                + _workingTimes.Length + _knowledgeDtos.Length;
         }
 
         public DeveloperServiceTests()
@@ -109,10 +138,13 @@ namespace TPDomainTests.ServicesTests
                     .SetValue(developer, emptyValue);
 
                 var exception = Assert.ThrowsException<ValidationException>
-                    (() => _developerService.Add(new DeveloperDto { 
-                        Developer = developer, 
-                        Availabilities = _availabilities, 
-                        WorkingTimes = _workingTimes }));
+                    (() => _developerService.Add(new DeveloperDto
+                    {
+                        Developer = developer,
+                        Availabilities = _availabilities,
+                        WorkingTimes = _workingTimes,
+                        KnowledgeDtos = _knowledgeDtos
+                    }));
 
                 Assert.AreEqual(exception.Message,
                     typeof(DataMessages).GetMessage("ErrorMessage_Required",
@@ -123,22 +155,43 @@ namespace TPDomainTests.ServicesTests
             }
 
             var exception = Assert.ThrowsException<ValidationException>
-                    (() => _developerService.Add(new DeveloperDto { 
-                        Developer = developer, 
-                        Availabilities = Array.Empty<Availability>(), 
-                        WorkingTimes = _workingTimes }));
+                    (() => _developerService.Add(new DeveloperDto
+                    {
+                        Developer = developer,
+                        Availabilities = Array.Empty<Availability>(),
+                        WorkingTimes = _workingTimes,
+                        KnowledgeDtos = _knowledgeDtos
+                    }));
             Assert.AreEqual(exception.Message,
                     typeof(DataMessages).GetMessage("ErrorMessage_Required",
                     typeof(Labels).GetMessage(nameof(Availability))));
 
             exception = Assert.ThrowsException<ValidationException>
-                    (() => _developerService.Add(new DeveloperDto { 
-                        Developer = developer, 
-                        Availabilities = _availabilities, 
-                        WorkingTimes = Array.Empty<WorkingTime>() }));
+                    (() => _developerService.Add(new DeveloperDto
+                    {
+                        Developer = developer,
+                        Availabilities = _availabilities,
+                        WorkingTimes = Array.Empty<WorkingTime>(),
+                        KnowledgeDtos = _knowledgeDtos
+                    }));
             Assert.AreEqual(exception.Message,
                     typeof(DataMessages).GetMessage("ErrorMessage_Required",
                     typeof(Labels).GetMessage(nameof(WorkingTime))));
+
+            exception = Assert.ThrowsException<ValidationException>
+                    (() => _developerService.Add(new DeveloperDto
+                    {
+                        Developer = developer,
+                        Availabilities = _availabilities,
+                        WorkingTimes = _workingTimes,
+                        KnowledgeDtos = Array.Empty<KnowledgeDto>()
+                    }));
+            Assert.AreEqual(exception.Message,
+                    typeof(DataMessages).GetMessage("ErrorMessage_Required",
+                    typeof(Labels).GetMessage(nameof(DeveloperKnowledge.Rate)))
+                    + Environment.NewLine +
+                    typeof(DataMessages).GetMessage("ErrorMessage_Required",
+                    typeof(Labels).GetMessage(nameof(Knowledge))));
         }
 
         [TestMethod]
@@ -157,7 +210,9 @@ namespace TPDomainTests.ServicesTests
             _developerService.Add(new DeveloperDto { 
                 Developer = developer1, 
                 Availabilities = _availabilities, 
-                WorkingTimes = _workingTimes });
+                WorkingTimes = _workingTimes,
+                KnowledgeDtos = _knowledgeDtos
+            });
 
             var developer2 = new Developer
             {
@@ -174,7 +229,9 @@ namespace TPDomainTests.ServicesTests
                 (() => _developerService.Add(new DeveloperDto { 
                     Developer = developer2, 
                     Availabilities = _availabilities, 
-                    WorkingTimes = _workingTimes }));
+                    WorkingTimes = _workingTimes,
+                    KnowledgeDtos = _knowledgeDtos
+                }));
         }
 
         [TestMethod]
@@ -229,7 +286,9 @@ namespace TPDomainTests.ServicesTests
             int affectedRows = _developerService.Add(new DeveloperDto { 
                 Developer = developer, 
                 Availabilities = _availabilities, 
-                WorkingTimes = _workingTimes });
+                WorkingTimes = _workingTimes,
+                KnowledgeDtos = _knowledgeDtos
+            });
 
             Assert.AreEqual(GetAllRows(), affectedRows);
             Assert.IsTrue(developer.DeveloperId > 0);
@@ -261,7 +320,9 @@ namespace TPDomainTests.ServicesTests
             _developerService.Add(new DeveloperDto { 
                 Developer = developer, 
                 Availabilities = _availabilities, 
-                WorkingTimes = _workingTimes });
+                WorkingTimes = _workingTimes,
+                KnowledgeDtos = _knowledgeDtos
+            });
 
             var developerDto = _developerService.GetDeveloperDto(developer.DeveloperId);
 
@@ -272,6 +333,9 @@ namespace TPDomainTests.ServicesTests
             Assert.IsTrue(
                 _workingTimes.All(dev => developerDto.WorkingTimes.Contains(dev))
                 && _workingTimes.Length == developerDto.WorkingTimes.Count);
+            Assert.IsTrue(
+                _knowledgeDtos.All(dev => developerDto.KnowledgeDtos.Contains(dev))
+                && _knowledgeDtos.Length == developerDto.KnowledgeDtos.Count);
         }
 
         [TestMethod]
@@ -315,7 +379,9 @@ namespace TPDomainTests.ServicesTests
                     Developer = dev, 
                     Availabilities = 
                     _availabilities, 
-                    WorkingTimes = _workingTimes }));
+                    WorkingTimes = _workingTimes,
+                    KnowledgeDtos = _knowledgeDtos
+                }));
 
             var developersWithGet = _developerService.GetDevelopers();
 
@@ -353,7 +419,9 @@ namespace TPDomainTests.ServicesTests
             _developerService.Add(new DeveloperDto { 
                 Developer = developer, 
                 Availabilities = _availabilities, 
-                WorkingTimes = _workingTimes });
+                WorkingTimes = _workingTimes,
+                KnowledgeDtos = _knowledgeDtos
+            });
             int id = developer.DeveloperId;
 
             int affectedRows = _developerService.Delete(id);
@@ -379,7 +447,9 @@ namespace TPDomainTests.ServicesTests
             _developerService.Add(new DeveloperDto { 
                 Developer = developer, 
                 Availabilities = _availabilities, 
-                WorkingTimes = _workingTimes });
+                WorkingTimes = _workingTimes,
+                KnowledgeDtos = _knowledgeDtos
+            });
 
             TestRequiredProperty(nameof(developer.Name), null);
 
@@ -407,7 +477,9 @@ namespace TPDomainTests.ServicesTests
                     (() => _developerService.Update(new DeveloperDto { 
                         Developer = developer, 
                         Availabilities = _availabilities, 
-                        WorkingTimes = _workingTimes }));
+                        WorkingTimes = _workingTimes,
+                        KnowledgeDtos = _knowledgeDtos
+                    }));
 
                 Assert.AreEqual(exception.Message,
                     typeof(DataMessages).GetMessage("ErrorMessage_Required",
@@ -421,7 +493,9 @@ namespace TPDomainTests.ServicesTests
                     (() => _developerService.Update(new DeveloperDto { 
                         Developer = developer, 
                         Availabilities = Array.Empty<Availability>(), 
-                        WorkingTimes = _workingTimes }));
+                        WorkingTimes = _workingTimes,
+                        KnowledgeDtos = _knowledgeDtos
+                    }));
             Assert.AreEqual(exception.Message,
                     typeof(DataMessages).GetMessage("ErrorMessage_Required",
                     typeof(Labels).GetMessage(nameof(Availability))));
@@ -431,11 +505,27 @@ namespace TPDomainTests.ServicesTests
                     {
                         Developer = developer,
                         Availabilities = _availabilities,
-                        WorkingTimes = Array.Empty<WorkingTime>()
+                        WorkingTimes = Array.Empty<WorkingTime>(),
+                        KnowledgeDtos = _knowledgeDtos
                     }));
             Assert.AreEqual(exception.Message,
                     typeof(DataMessages).GetMessage("ErrorMessage_Required",
                     typeof(Labels).GetMessage(nameof(WorkingTime))));
+
+            exception = Assert.ThrowsException<ValidationException>
+                    (() => _developerService.Update(new DeveloperDto
+                    {
+                        Developer = developer,
+                        Availabilities = _availabilities,
+                        WorkingTimes = _workingTimes,
+                        KnowledgeDtos = Array.Empty<KnowledgeDto>()
+                    }));
+            Assert.AreEqual(exception.Message,
+                    typeof(DataMessages).GetMessage("ErrorMessage_Required",
+                    typeof(Labels).GetMessage(nameof(DeveloperKnowledge.Rate)))
+                    + Environment.NewLine +
+                    typeof(DataMessages).GetMessage("ErrorMessage_Required",
+                    typeof(Labels).GetMessage(nameof(Knowledge))));
         }
 
         [TestMethod]
@@ -476,7 +566,9 @@ namespace TPDomainTests.ServicesTests
             _developerService.Add(new DeveloperDto { 
                 Developer = developer1, 
                 Availabilities = _availabilities, 
-                WorkingTimes = _workingTimes });
+                WorkingTimes = _workingTimes,
+                KnowledgeDtos = _knowledgeDtos
+            });
 
             var developer2 = new Developer
             {
@@ -491,7 +583,9 @@ namespace TPDomainTests.ServicesTests
             _developerService.Add(new DeveloperDto { 
                 Developer = developer2, 
                 Availabilities = _availabilities, 
-                WorkingTimes = _workingTimes });
+                WorkingTimes = _workingTimes,
+                KnowledgeDtos = _knowledgeDtos
+            });
 
             developer2.Email = developer1.Email;
 
@@ -499,7 +593,9 @@ namespace TPDomainTests.ServicesTests
                 (() => _developerService.Update(new DeveloperDto { 
                     Developer = developer2, 
                     Availabilities = _availabilities, 
-                    WorkingTimes = _workingTimes }));
+                    WorkingTimes = _workingTimes,
+                    KnowledgeDtos = _knowledgeDtos
+                }));
         }
 
         [TestMethod]
@@ -518,19 +614,22 @@ namespace TPDomainTests.ServicesTests
             _developerService.Add(new DeveloperDto { 
                 Developer = developer, 
                 Availabilities = _availabilities, 
-                WorkingTimes = _workingTimes });
+                WorkingTimes = _workingTimes,
+                KnowledgeDtos = _knowledgeDtos
+            });
 
             developer.Name = "Name2";
             developer.Email = "email2@email.com";
-            int affectedRows = _developerService.Update(new DeveloperDto { 
+            _developerService.Update(new DeveloperDto { 
                 Developer = developer, 
                 Availabilities = _availabilities, 
-                WorkingTimes = _workingTimes });
+                WorkingTimes = _workingTimes,
+                KnowledgeDtos = _knowledgeDtos
+            });
             var developerWithGet = _developerService.GetDeveloperDto(developer.DeveloperId);
 
-            Assert.AreEqual(1, affectedRows);
-            Assert.AreEqual(developerWithGet.Developer.Name, "Name2");
-            Assert.AreEqual(developerWithGet.Developer.Email, "email2@email.com");
+            Assert.AreEqual(developerWithGet.Developer.Name, developer.Name);
+            Assert.AreEqual(developerWithGet.Developer.Email, developer.Email);
         }
     }
 }

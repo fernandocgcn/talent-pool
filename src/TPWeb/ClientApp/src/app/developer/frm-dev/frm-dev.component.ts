@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { Availability } from '../../models/availability';
 import { DeveloperService } from '../../services/developer.service';
-import { CheckboxItem, ValidateRequiredCheckBox, GetCheckBoxValues } from '../../shared/checkbox-group/checkbox-group.component';
 import { WorkingTime } from '../../models/working-time';
 import { Knowledge } from '../../models/knowledge';
 import { ERateKey, ERate } from '../../models/e-rate';
+import { CheckboxItem, ValidateRequiredCheckBox, GetCheckBoxValues } from '../../shared/checkbox-group/checkbox-group.component';
 
 @Component({
   selector: 'frm-dev',
@@ -36,7 +36,6 @@ export class FrmDevComponent implements OnInit {
               private formBuilder: FormBuilder,
               private developerService: DeveloperService) {
     const navigation = this.router.getCurrentNavigation();
-
     this.developerDto = navigation.extras.state.developerDto;
     this.availabilities = navigation.extras.state.availabilities;
     this.workingTimes = navigation.extras.state.workingTimes;
@@ -61,11 +60,15 @@ export class FrmDevComponent implements OnInit {
       knowledges: this.formBuilder.array([])
     });
 
-    this.knowledges.forEach(() => {
+    this.knowledges.forEach(knowledge => {
       const knowledges =
         this.form.get('knowledges') as FormArray;
+      console.log(this.developerDto);
+      const dto = (<Array<any>>this.developerDto.knowledgeDtos)
+        .find(dto => dto.knowledge.knowledgeId == knowledge.knowledgeId);
+      const rate = dto ? dto.rate : null;
       knowledges.push(this.formBuilder.group
-        ({ ratesRadio: ['', Validators.required] }));
+        ({ ratesRadio: [rate, Validators.required] }));
     });
   }
 
@@ -73,15 +76,17 @@ export class FrmDevComponent implements OnInit {
     if (this.form.valid) {
 
       this.form.value.developerId = this.developerDto.developer.developerId;
-      this.developerService.save({ developer: this.form.value,
-        availabilities: GetCheckBoxValues(this.form.get('availabilities')),
-        workingTimes: GetCheckBoxValues(this.form.get('workingTimes'))
+      this.developerService.save({
+          developer: this.form.value,
+          availabilities: GetCheckBoxValues(this.form.get('availabilities')),
+          workingTimes: GetCheckBoxValues(this.form.get('workingTimes')),
+
         })
         .subscribe(() => {
-          alert('Operação realizada com sucesso!');
-          this.router.navigate(['']);
-        },
-          errorMessage => alert(errorMessage)
+            alert('Operação realizada com sucesso!');
+            this.router.navigate(['']);
+          },
+            errorMessage => alert(errorMessage)
         );
 
     } else {

@@ -66,7 +66,7 @@ export class LstDevComponent implements OnInit {
             developer: {},
             availabilities: [],
             workingTimes: [],
-            knowledges: []
+            knowledgeDtos: []
           },
           availabilities: this.availabilities,
           workingTimes: this.workingTimes,
