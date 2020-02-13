@@ -31,11 +31,6 @@ namespace TPDomain.Services
             return _repository.GetAll<Developer>();
         }
 
-        public Developer Get(int id)
-        {
-            return _repository.GetByKey<Developer>(id);
-        }
-
         public DeveloperDto GetDeveloperDto(int id)
         {
             return new DeveloperDto
@@ -45,8 +40,11 @@ namespace TPDomain.Services
                     .Where(da => da.Developer.DeveloperId == id)
                     .Select(da => da.Availability)?.ToArray(),
                 WorkingTimes = _repository.GetDbSet<DeveloperWorkingTime>()
-                    .Where(da => da.Developer.DeveloperId == id)
-                    .Select(da => da.WorkingTime)?.ToArray()
+                    .Where(wt => wt.Developer.DeveloperId == id)
+                    .Select(wt => wt.WorkingTime)?.ToArray(),
+                Knowledges = _repository.GetDbSet<DeveloperKnowledge>()
+                    .Where(k => k.Developer.DeveloperId == id)
+                    .Select(k => k.Knowledge)?.ToArray()
             };
         }
 

@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { BaseService } from './base.service';
 import { Availability } from '../models/availability';
 import { WorkingTime } from '../models/working-time';
+import { Knowledge } from '../models/knowledge';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,14 @@ export class EntityListService extends BaseService {
     return (
       this.httpClient.get<WorkingTime[]>
         (this.baseUrl + 'workingtimes', super.httpOptions)
+        .pipe(catchError(super.handleError))
+    );
+  }
+
+  public getKnowledges(): Observable<Knowledge[]> {
+    return (
+      this.httpClient.get<Knowledge[]>
+        (this.baseUrl + 'knowledges', super.httpOptions)
         .pipe(catchError(super.handleError))
     );
   }

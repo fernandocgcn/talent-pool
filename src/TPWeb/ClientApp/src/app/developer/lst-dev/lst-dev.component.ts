@@ -5,6 +5,7 @@ import { DeveloperService } from '../../services/developer.service';
 import { EntityListService } from '../../services/entity-list.service';
 import { Availability } from '../../models/availability';
 import { WorkingTime } from '../../models/working-time';
+import { Knowledge } from '../../models/knowledge';
 
 @Component({
   selector: 'lst-dev',
@@ -15,6 +16,7 @@ export class LstDevComponent implements OnInit {
 
   private availabilities: Availability[];
   private workingTimes: WorkingTime[];
+  private knowledges: Knowledge[];
 
   constructor(private router: Router,
               private developerService: DeveloperService,
@@ -36,6 +38,11 @@ export class LstDevComponent implements OnInit {
         result => this.workingTimes = result,
         errorMessage => alert(errorMessage)
     );
+    this.entityListService.getKnowledges()
+      .subscribe(
+        result => this.knowledges = result,
+        errorMessage => alert(errorMessage)
+      );
   }
 
   public delete(dev: Developer): void {
@@ -55,11 +62,15 @@ export class LstDevComponent implements OnInit {
     this.router.navigate(['frm-dev'],
       {
         state: {
-          developer: {} as Developer,
-          devAvailabilities: new Array<Availability>(),
-          devWorkingTimes: new Array<WorkingTime>(),
+          developerDto: {
+            developer: {},
+            availabilities: [],
+            workingTimes: [],
+            knowledges: []
+          },
           availabilities: this.availabilities,
           workingTimes: this.workingTimes,
+          knowledges: this.knowledges
         }
       });
   }
@@ -72,11 +83,10 @@ export class LstDevComponent implements OnInit {
         this.router.navigate(['frm-dev'],
           {
             state: {
-              developer,
-              devAvailabilities: developerDto.availabilities,
-              devWorkingTimes: developerDto.workingTimes,
+              developerDto,
               availabilities: this.availabilities,
               workingTimes: this.workingTimes,
+              knowledges: this.knowledges
             }
           })
       })

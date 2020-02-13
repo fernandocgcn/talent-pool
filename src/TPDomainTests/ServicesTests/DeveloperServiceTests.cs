@@ -238,11 +238,11 @@ namespace TPDomainTests.ServicesTests
         [TestMethod]
         public void GetNonexistentDev()
         {
-            int id = -1;
+            int id = 1;
 
-            var developer = _developerService.Get(id);
+            var developerDto = _developerService.GetDeveloperDto(id);
 
-            Assert.IsNull(developer);
+            Assert.IsNull(developerDto.Developer);
         }
 
         [TestMethod]
@@ -263,10 +263,8 @@ namespace TPDomainTests.ServicesTests
                 Availabilities = _availabilities, 
                 WorkingTimes = _workingTimes });
 
-            var developerWithGet = _developerService.Get(developer.DeveloperId);
             var developerDto = _developerService.GetDeveloperDto(developer.DeveloperId);
 
-            Assert.AreEqual(developerWithGet, developer);
             Assert.AreEqual(developerDto.Developer, developer);
             Assert.IsTrue(
                 _availabilities.All(dev => developerDto.Availabilities.Contains(dev))
@@ -330,7 +328,7 @@ namespace TPDomainTests.ServicesTests
         [TestMethod]
         public void DeleteNonexistentDevShouldReturnRecordNotFoundExceptionMessage()
         {
-            int id = -1;
+            int id = 1;
 
             var exception = Assert.ThrowsException<ValidationException>
                 (() => _developerService.Delete(id));
@@ -359,10 +357,10 @@ namespace TPDomainTests.ServicesTests
             int id = developer.DeveloperId;
 
             int affectedRows = _developerService.Delete(id);
-            developer = _developerService.Get(id);
+            var developerDto = _developerService.GetDeveloperDto(id);
 
             Assert.AreEqual(GetAllRows(), affectedRows);
-            Assert.IsNull(developer);
+            Assert.IsNull(developerDto.Developer);
         }
 
         [TestMethod]
@@ -528,11 +526,11 @@ namespace TPDomainTests.ServicesTests
                 Developer = developer, 
                 Availabilities = _availabilities, 
                 WorkingTimes = _workingTimes });
-            var developerWithGet = _developerService.Get(developer.DeveloperId);
+            var developerWithGet = _developerService.GetDeveloperDto(developer.DeveloperId);
 
             Assert.AreEqual(1, affectedRows);
-            Assert.AreEqual(developerWithGet.Name, "Name2");
-            Assert.AreEqual(developerWithGet.Email, "email2@email.com");
+            Assert.AreEqual(developerWithGet.Developer.Name, "Name2");
+            Assert.AreEqual(developerWithGet.Developer.Email, "email2@email.com");
         }
     }
 }

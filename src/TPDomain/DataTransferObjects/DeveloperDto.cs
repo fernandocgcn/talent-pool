@@ -8,5 +8,6 @@ namespace TPDomain.DataTransferObjects
         public Developer Developer { get; set; }
         public ICollection<Availability> Availabilities { get; set; }
         public ICollection<WorkingTime> WorkingTimes { get; set; }
+        public ICollection<Knowledge> Knowledges { get; set; }
     }
 }
