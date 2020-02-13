@@ -54,10 +54,10 @@ namespace EntityFramework.Data
             {
                 _dbContext.Add(entity);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 _dbContext.Entry(entity).State = EntityState.Detached;
-                throw e;
+                throw;
             }
         }
 
@@ -67,10 +67,10 @@ namespace EntityFramework.Data
             {
                 _dbContext.Remove(attachedEntity);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 _dbContext.Entry(attachedEntity).State = EntityState.Detached;
-                throw e;
+                throw;
             }
         }
 
@@ -85,10 +85,10 @@ namespace EntityFramework.Data
             {
                 _dbContext.Entry(oldEntity).CurrentValues.SetValues(newEntity);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 _dbContext.Entry(oldEntity).State = EntityState.Detached;
-                throw e;
+                throw;
             }
         }
 
@@ -98,10 +98,10 @@ namespace EntityFramework.Data
             {
                 _dbContext.Update(attachedEntity);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 _dbContext.Entry(attachedEntity).State = EntityState.Detached;
-                throw e;
+                throw;
             }
         }
 
@@ -169,13 +169,25 @@ namespace EntityFramework.Data
 
         public void Detach<T>(T entity) where T : class
         {
-            if (entity != null)
+            if (entity != null &&
+                _dbContext.Entry(entity) != null)
                 _dbContext.Entry(entity).State = EntityState.Detached;
         }
 
         public int Commit()
         {
             return _dbContext.SaveChanges();
+        }
+
+        public void RollBack()
+        {
+            var changedEntries = _dbContext.ChangeTracker.Entries()
+                .Where(entry => entry.State == EntityState.Added || 
+                        entry.State == EntityState.Modified ||
+                        entry.State == EntityState.Deleted)
+                .Reverse();
+            foreach (var entry in changedEntries)
+                entry.State = EntityState.Detached;
         }
 
         public DbSet<T> GetDbSet<T>() where T : class
