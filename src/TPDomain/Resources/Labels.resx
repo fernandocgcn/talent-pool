@@ -135,6 +135,9 @@
   <data name="ExtraKnowledge" xml:space="preserve">
     <value>Conhecimento Extra</value>
   </data>
+  <data name="Knowledge" xml:space="preserve">
+    <value>Conhecimento</value>
+  </data>
   <data name="LinkedIn" xml:space="preserve">
     <value>LinkedIn</value>
   </data>
@@ -143,6 +146,9 @@
   </data>
   <data name="Portfolio" xml:space="preserve">
     <value>Portfólio</value>
+  </data>
+  <data name="Rate" xml:space="preserve">
+    <value>Classificação</value>
   </data>
   <data name="Salary" xml:space="preserve">
     <value>Salário</value>

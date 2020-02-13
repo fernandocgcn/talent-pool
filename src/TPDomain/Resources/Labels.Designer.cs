@@ -115,6 +115,15 @@ namespace TPDomain.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Conhecimento.
+        /// </summary>
+        public static string Knowledge {
+            get {
+                return ResourceManager.GetString("Knowledge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a LinkedIn.
         /// </summary>
         public static string LinkedIn {
@@ -138,6 +147,15 @@ namespace TPDomain.Resources {
         public static string Portfolio {
             get {
                 return ResourceManager.GetString("Portfolio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Classificação.
+        /// </summary>
+        public static string Rate {
+            get {
+                return ResourceManager.GetString("Rate", resourceCulture);
             }
         }
         
