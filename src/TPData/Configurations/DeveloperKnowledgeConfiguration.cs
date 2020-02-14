@@ -1,4 +1,4 @@
-﻿using TPDomain.Models;
+﻿using TPModel.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -8,21 +8,15 @@ namespace TPData.Configurations
     {
         public void Configure(EntityTypeBuilder<DeveloperKnowledge> builder)
         {
-            builder.ToTable("tb_developer_knowledge");
+            builder.ToTable("tb_developer_knowledge", "dbo");
 
-            builder.Property(entity => entity.DeveloperKnowledgeId)
-                .HasColumnName("dek_id")
-                .IsRequired()
-                .ValueGeneratedOnAdd();
+            builder.Property<int>("dev_id").IsRequired();
+            builder.Property<int>("kno_id").IsRequired();
             builder.Property(entity => entity.Rate)
                 .HasColumnName("dek_rate")
                 .IsRequired();
-            builder.Property<int>("dev_id").IsRequired();
-            builder.Property<int>("kno_id").IsRequired();
 
-            builder.HasKey(entity => entity.DeveloperKnowledgeId);
-            builder.HasIndex(new string[] { "dev_id", "kno_id" })
-                .IsUnique();
+            builder.HasKey(new string[] { "dev_id", "kno_id" });
 
             builder.HasOne(entity => entity.Developer)
                 .WithMany()

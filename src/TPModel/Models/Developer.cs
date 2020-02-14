@@ -1,9 +1,9 @@
 ﻿using EntityFramework.Resources;
-using TPDomain.Resources;
+using TPModel.Resources;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace TPDomain.Models
+namespace TPModel.Models
 {
     public class Developer
     {

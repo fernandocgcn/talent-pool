@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TPData", "TPData\TPData.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TPWeb", "TPWeb\TPWeb.csproj", "{5E48CC19-8AF5-4982-9F56-142090328EAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TPDomainTests", "TPDomainTests\TPDomainTests.csproj", "{FACDE02E-74CF-47B2-93A2-4F2E9730980E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TPDomainTests", "TPDomainTests\TPDomainTests.csproj", "{FACDE02E-74CF-47B2-93A2-4F2E9730980E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TPModel", "TPModel\TPModel.csproj", "{B51B9CC9-275E-4604-8463-1C821180C444}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{FACDE02E-74CF-47B2-93A2-4F2E9730980E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FACDE02E-74CF-47B2-93A2-4F2E9730980E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FACDE02E-74CF-47B2-93A2-4F2E9730980E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B51B9CC9-275E-4604-8463-1C821180C444}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B51B9CC9-275E-4604-8463-1C821180C444}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B51B9CC9-275E-4604-8463-1C821180C444}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B51B9CC9-275E-4604-8463-1C821180C444}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

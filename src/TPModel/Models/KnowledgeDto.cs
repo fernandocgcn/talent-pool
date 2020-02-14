@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using TPDomain.Models;
 
-namespace TPDomain.DataTransferObjects
+namespace TPModel.Models
 {
     public class KnowledgeDto
     {

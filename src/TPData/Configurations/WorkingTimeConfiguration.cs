@@ -1,4 +1,4 @@
-﻿using TPDomain.Models;
+﻿using TPModel.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -8,7 +8,7 @@ namespace TPData.Configurations
     {
         public void Configure(EntityTypeBuilder<WorkingTime> builder)
         {
-            builder.ToTable("tb_working_time");
+            builder.ToTable("tb_working_time", "dbo");
 
             builder.Property(entity => entity.WorkingTimeId)
                 .HasColumnName("wot_id")

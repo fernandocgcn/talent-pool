@@ -1,5 +1,4 @@
-﻿using TPDomain.Models;
-using TPDomain.DataTransferObjects;
+﻿using TPModel.Models;
 using System.Collections.Generic;
 
 namespace TPDomain.Services

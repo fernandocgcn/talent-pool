@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TPDomain\TPDomain.csproj" />
+    <ProjectReference Include="..\TPModel\TPModel.csproj" />
   </ItemGroup>
 
 </Project>

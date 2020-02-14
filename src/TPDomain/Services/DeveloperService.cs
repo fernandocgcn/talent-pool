@@ -2,8 +2,7 @@
 using EntityFramework.Data;
 using EntityFramework.Validations;
 using EntityFramework.Resources;
-using TPDomain.DataTransferObjects;
-using TPDomain.Models;
+using TPModel.Models;
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
@@ -65,6 +64,7 @@ namespace TPDomain.Services
             }
             catch (DbUpdateException)
             {
+                _repository.RollBack();
                 throw new Exception(typeof(DataMessages).GetMessage("ErrorMessage_RecordRelated"));
             }
         }

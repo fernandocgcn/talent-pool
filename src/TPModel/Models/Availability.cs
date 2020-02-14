@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TPDomain.Models
+namespace TPModel.Models
 {
     public class Availability
     {

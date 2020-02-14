@@ -2,10 +2,9 @@ using Kernel.Extensions;
 using EntityFramework.Data;
 using EntityFramework.Validations;
 using EntityFramework.Resources;
-using TPDomain.DataTransferObjects;
-using TPDomain.Models;
+using TPModel.Models;
+using TPModel.Resources;
 using TPDomain.Services;
-using TPDomain.Resources;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
@@ -187,11 +186,11 @@ namespace TPDomainTests.ServicesTests
                         KnowledgeDtos = Array.Empty<KnowledgeDto>()
                     }));
             Assert.AreEqual(exception.Message,
-                    typeof(DataMessages).GetMessage("ErrorMessage_Required",
-                    typeof(Labels).GetMessage(nameof(DeveloperKnowledge.Rate)))
-                    + Environment.NewLine +
-                    typeof(DataMessages).GetMessage("ErrorMessage_Required",
-                    typeof(Labels).GetMessage(nameof(Knowledge))));
+                typeof(DataMessages).GetMessage("ErrorMessage_Required",
+                typeof(Labels).GetMessage(nameof(Knowledge)))
+                + Environment.NewLine +
+                typeof(DataMessages).GetMessage("ErrorMessage_Required",
+                typeof(Labels).GetMessage(nameof(DeveloperKnowledge.Rate))));
         }
 
         [TestMethod]
@@ -521,11 +520,11 @@ namespace TPDomainTests.ServicesTests
                         KnowledgeDtos = Array.Empty<KnowledgeDto>()
                     }));
             Assert.AreEqual(exception.Message,
-                    typeof(DataMessages).GetMessage("ErrorMessage_Required",
-                    typeof(Labels).GetMessage(nameof(DeveloperKnowledge.Rate)))
-                    + Environment.NewLine +
-                    typeof(DataMessages).GetMessage("ErrorMessage_Required",
-                    typeof(Labels).GetMessage(nameof(Knowledge))));
+                typeof(DataMessages).GetMessage("ErrorMessage_Required",
+                typeof(Labels).GetMessage(nameof(Knowledge)))
+                + Environment.NewLine +
+                typeof(DataMessages).GetMessage("ErrorMessage_Required",
+                typeof(Labels).GetMessage(nameof(DeveloperKnowledge.Rate))));
         }
 
         [TestMethod]

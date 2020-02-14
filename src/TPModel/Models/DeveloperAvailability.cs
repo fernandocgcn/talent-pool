@@ -1,31 +1,31 @@
 ﻿using EntityFramework.Resources;
-using TPDomain.Resources;
+using TPModel.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace TPDomain.Models
+namespace TPModel.Models
 {
-    public class DeveloperWorkingTime
+    public class DeveloperAvailability
     {
         [Display(Name = nameof(Developer), ResourceType = typeof(Labels))]
         [Required(ErrorMessageResourceName = "ErrorMessage_Required", ErrorMessageResourceType = typeof(DataMessages))]
         public Developer Developer { get; set; }
 
-        [Display(Name = nameof(WorkingTime), ResourceType = typeof(Labels))]
+        [Display(Name = nameof(Availability), ResourceType = typeof(Labels))]
         [Required(ErrorMessageResourceName = "ErrorMessage_Required", ErrorMessageResourceType = typeof(DataMessages))]
-        public WorkingTime WorkingTime { get; set; }
+        public Availability Availability { get; set; }
 
         public override bool Equals(object obj)
         {
-            return obj is DeveloperWorkingTime time &&
-                   EqualityComparer<Developer>.Default.Equals(Developer, time.Developer) &&
-                   EqualityComparer<WorkingTime>.Default.Equals(WorkingTime, time.WorkingTime);
+            return obj is DeveloperAvailability availability &&
+                   EqualityComparer<Developer>.Default.Equals(Developer, availability.Developer) &&
+                   EqualityComparer<Availability>.Default.Equals(Availability, availability.Availability);
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Developer, WorkingTime);
+            return HashCode.Combine(Developer, Availability);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using TPDomain.DataTransferObjects;
-using TPDomain.Models;
+﻿using TPModel.Models;
 using TPDomain.Services;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;

@@ -1,9 +1,12 @@
 
 src/.vs
+misc/ClassDiagram.svg
 src/Kernel/bin
 src/Kernel/obj
 src/EntityFramework/bin
 src/EntityFramework/obj
+src/TPModel/bin
+src/TPModel/obj
 src/TPDomain/bin
 src/TPDomain/obj
 src/TPDomainTests/bin

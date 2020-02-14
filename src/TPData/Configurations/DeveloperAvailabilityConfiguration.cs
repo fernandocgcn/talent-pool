@@ -1,4 +1,4 @@
-﻿using TPDomain.Models;
+﻿using TPModel.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -8,7 +8,7 @@ namespace TPData.Configurations
     {
         public void Configure(EntityTypeBuilder<DeveloperAvailability> builder)
         {
-            builder.ToTable("tb_developer_availability");
+            builder.ToTable("tb_developer_availability", "dbo");
 
             builder.Property<int>("dev_id").IsRequired();
             builder.Property<int>("ava_id").IsRequired();

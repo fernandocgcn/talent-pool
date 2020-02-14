@@ -1,4 +1,4 @@
-﻿using TPDomain.Models;
+﻿using TPModel.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -8,7 +8,7 @@ namespace TPData.Configurations
     {
         public void Configure(EntityTypeBuilder<Developer> builder)
         {
-            builder.ToTable("tb_developer");
+            builder.ToTable("tb_developer", "dbo");
 
             builder.Property(entity => entity.DeveloperId)
                 .HasColumnName("dev_id")

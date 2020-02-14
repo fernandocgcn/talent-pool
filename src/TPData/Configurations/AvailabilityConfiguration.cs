@@ -1,4 +1,4 @@
-﻿using TPDomain.Models;
+﻿using TPModel.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -8,7 +8,7 @@ namespace TPData.Configurations
     {
         public void Configure(EntityTypeBuilder<Availability> builder)
         {
-            builder.ToTable("tb_availability");
+            builder.ToTable("tb_availability", "dbo");
 
             builder.Property(entity => entity.AvailabilityId)
                 .HasColumnName("ava_id")

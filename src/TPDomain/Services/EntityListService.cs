@@ -1,5 +1,5 @@
 ﻿using EntityFramework.Data;
-using TPDomain.Models;
+using TPModel.Models;
 using System;
 using System.Collections.Generic;
 

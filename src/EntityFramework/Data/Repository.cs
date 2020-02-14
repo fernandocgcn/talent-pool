@@ -50,28 +50,12 @@ namespace EntityFramework.Data
 
         public void Add<T>(T entity) where T : class
         {
-            try
-            {
-                _dbContext.Add(entity);
-            }
-            catch (Exception)
-            {
-                _dbContext.Entry(entity).State = EntityState.Detached;
-                throw;
-            }
+            _dbContext.Add(entity);
         }
 
         public void Delete<T>(T attachedEntity) where T : class
         {
-            try
-            {
-                _dbContext.Remove(attachedEntity);
-            }
-            catch (Exception)
-            {
-                _dbContext.Entry(attachedEntity).State = EntityState.Detached;
-                throw;
-            }
+            _dbContext.Remove(attachedEntity);
         }
 
         public void Delete<T>(Func<T, bool> func) where T : class
@@ -81,35 +65,19 @@ namespace EntityFramework.Data
 
         public void Overwrite<T>(T oldEntity, T newEntity) where T : class
         {
-            try
-            {
-                _dbContext.Entry(oldEntity).CurrentValues.SetValues(newEntity);
-            }
-            catch (Exception)
-            {
-                _dbContext.Entry(oldEntity).State = EntityState.Detached;
-                throw;
-            }
+            _dbContext.Entry(oldEntity).CurrentValues.SetValues(newEntity);
         }
 
         public void Update<T>(T attachedEntity) where T : class
         {
-            try
-            {
-                _dbContext.Update(attachedEntity);
-            }
-            catch (Exception)
-            {
-                _dbContext.Entry(attachedEntity).State = EntityState.Detached;
-                throw;
-            }
+            _dbContext.Update(attachedEntity);
         }
 
         private object[] GetKey<T>(T entity, bool isValue) where T : class
         {
             if (entity == null)
             {
-                throw new NullReferenceException();
+                throw new ArgumentNullException(nameof(entity));
             }
             List<object> values = new List<object>();
             var entry = _dbContext.Entry(entity);
@@ -169,8 +137,7 @@ namespace EntityFramework.Data
 
         public void Detach<T>(T entity) where T : class
         {
-            if (entity != null &&
-                _dbContext.Entry(entity) != null)
+            if (entity != null && _dbContext.Entry(entity) != null)
                 _dbContext.Entry(entity).State = EntityState.Detached;
         }
 

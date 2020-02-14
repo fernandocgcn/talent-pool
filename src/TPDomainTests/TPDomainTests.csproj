@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TPData\TPData.csproj" />
+    <ProjectReference Include="..\TPDomain\TPDomain.csproj" />
   </ItemGroup>
 
 </Project>

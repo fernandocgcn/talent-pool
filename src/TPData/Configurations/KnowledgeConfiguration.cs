@@ -1,4 +1,4 @@
-﻿using TPDomain.Models;
+﻿using TPModel.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -8,7 +8,7 @@ namespace TPData.Configurations
     {
         public void Configure(EntityTypeBuilder<Knowledge> builder)
         {
-            builder.ToTable("tb_knowledge");
+            builder.ToTable("tb_knowledge", "dbo");
 
             builder.Property(entity => entity.KnowledgeId)
                 .HasColumnName("kno_id")
