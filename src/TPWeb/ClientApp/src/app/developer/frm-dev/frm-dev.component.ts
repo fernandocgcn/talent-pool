@@ -61,9 +61,7 @@ export class FrmDevComponent implements OnInit {
     });
 
     this.knowledges.forEach(knowledge => {
-      const knowledges =
-        this.form.get('knowledges') as FormArray;
-      console.log(this.developerDto);
+      const knowledges = this.form.get('knowledges') as FormArray;
       const dto = (<Array<any>>this.developerDto.knowledgeDtos)
         .find(dto => dto.knowledge.knowledgeId == knowledge.knowledgeId);
       const rate = dto ? dto.rate : null;
@@ -74,13 +72,13 @@ export class FrmDevComponent implements OnInit {
 
   public onSubmit(): void {
     if (this.form.valid) {
-
+      
       this.form.value.developerId = this.developerDto.developer.developerId;
       this.developerService.save({
           developer: this.form.value,
           availabilities: GetCheckBoxValues(this.form.get('availabilities')),
           workingTimes: GetCheckBoxValues(this.form.get('workingTimes')),
-
+          knowledgeDtos: this.knowledgeDtos
         })
         .subscribe(() => {
             alert('Operação realizada com sucesso!');
@@ -106,4 +104,16 @@ export class FrmDevComponent implements OnInit {
     return !control.valid && control.touched;
   }
 
+  private get knowledgeDtos(): any[] {
+    const knowledgeDtos = [];
+    const knowledges = this.form.get('knowledges') as FormArray;
+    let i = 0;
+    for (const formGroup of knowledges.controls) {
+      const control = (<FormGroup>formGroup)
+        .controls['ratesRadio'] as FormControl;
+      knowledgeDtos.push
+        ({ knowledge: this.knowledges[i++], rate: control.value });
+    }
+    return knowledgeDtos;
+  }
 }

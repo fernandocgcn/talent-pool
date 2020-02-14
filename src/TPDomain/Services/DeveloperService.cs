@@ -44,7 +44,9 @@ namespace TPDomain.Services
                     .Select(wt => wt.WorkingTime)?.ToArray(),
                 KnowledgeDtos = _repository.GetDbSet<DeveloperKnowledge>()
                     .Where(k => k.Developer.DeveloperId == id)
-                    .Select(k => new KnowledgeDto(k.Knowledge, k.Rate))?.ToArray()
+                    .Select(k => 
+                        new KnowledgeDto { Knowledge = k.Knowledge, Rate = k.Rate })
+                    ?.ToArray()
             };
         }
 

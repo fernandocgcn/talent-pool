@@ -61,30 +61,30 @@ namespace TPDomainTests.ServicesTests
 
         private readonly KnowledgeDto[] _knowledgeDtos =
         {
-            new KnowledgeDto(
-                new Knowledge
+            new KnowledgeDto {
+                Knowledge = new Knowledge
                 {
                     KnowledgeId = 1,
                     Name = "Ionic"
                 },
-                1
-            ),
-            new KnowledgeDto(
-                new Knowledge
+                Rate = 1
+            },
+            new KnowledgeDto {
+                Knowledge = new Knowledge
                 {
                     KnowledgeId = 2,
                     Name = "ReactJS"
                 },
-                3
-            ),
-            new KnowledgeDto(
-                new Knowledge
+                Rate = 3
+            },
+            new KnowledgeDto {
+                Knowledge = new Knowledge
                 {
                     KnowledgeId = 3,
                     Name = "React Native"
                 },
-                5
-            )
+                Rate = 5
+            }
         };
 
         private int GetAllRows()

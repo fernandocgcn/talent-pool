@@ -9,12 +9,6 @@ namespace TPDomain.DataTransferObjects
         public Knowledge Knowledge { get; set; }
         public short? Rate { get; set; }
 
-        public KnowledgeDto(Knowledge knowledge, short? rate)
-        {
-            Knowledge = knowledge;
-            Rate = rate;
-        }
-
         public override bool Equals(object obj)
         {
             return obj is KnowledgeDto dto &&
