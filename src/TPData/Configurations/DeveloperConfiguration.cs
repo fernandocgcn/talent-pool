@@ -41,8 +41,6 @@ namespace TPData.Configurations
                 .HasColumnName("dev_portfolio");
             builder.Property(entity => entity.ExtraKnowledge)
                 .HasColumnName("dev_extra_knowledge");
-            builder.Property(entity => entity.CrudLink)
-                .HasColumnName("dev_crud_link");
 
             builder.HasKey(entity => entity.DeveloperId);
             builder.HasIndex(entity => entity.Email)

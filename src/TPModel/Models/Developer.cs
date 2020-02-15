@@ -47,9 +47,6 @@ namespace TPModel.Models
         [Display(Name = nameof(ExtraKnowledge), ResourceType = typeof(Labels))]
         public string ExtraKnowledge { get; set; }
 
-        [Display(Name = nameof(CrudLink), ResourceType = typeof(Labels))]
-        public string CrudLink { get; set; }
-
         public override bool Equals(object obj)
         {
             return obj is Developer developer &&
