@@ -10,27 +10,28 @@ import { CheckboxItem, ValidateRequiredCheckBox, GetCheckBoxValues } from '../..
 
 @Component({
   selector: 'frm-dev',
-  templateUrl: './frm-dev.component.html'
+  templateUrl: './frm-dev.component.html',
+  styleUrls: ['./frm-dev.component.css']
 })
 export class FrmDevComponent implements OnInit {
   public readonly developerDto: any;
 
   public form: FormGroup;
 
-  public readonly availabilities: Availability[];
+  private readonly availabilities: Availability[];
   public get availabilityItems(): CheckboxItem[] {
     return this.availabilities.map(a => new CheckboxItem(a, a.description));
   }
 
-  public readonly workingTimes: WorkingTime[];
+  private readonly workingTimes: WorkingTime[];
   public get workingTimeItems(): CheckboxItem[] {
     return this.workingTimes.map(wt => new CheckboxItem(wt, wt.description));
   }
 
   public readonly knowledges: Knowledge[];
-  public readonly rates: any[] =
+  public readonly rateItems: any[] =
     Object.keys(ERate).map
-      (rate => ({ label: ERate[rate], key: ERateKey[rate] }));
+      (r => ({ label: ERate[r], key: ERateKey[r] }));
 
   constructor(private router: Router,
               private formBuilder: FormBuilder,
@@ -54,20 +55,11 @@ export class FrmDevComponent implements OnInit {
       linkedIn: [this.developerDto.developer.linkedIn],
       portfolio: [this.developerDto.developer.portfolio],
       extraKnowledge: [this.developerDto.developer.extraKnowledge],
-      crudLink: [this.developerDto.developer.crudLink],
       availabilities: this.formBuilder.array([], ValidateRequiredCheckBox()),
       workingTimes: this.formBuilder.array([], ValidateRequiredCheckBox()),
       knowledges: this.formBuilder.array([])
     });
-
-    this.knowledges.forEach(knowledge => {
-      const knowledges = this.form.get('knowledges') as FormArray;
-      const dto = (<Array<any>>this.developerDto.knowledgeDtos)
-        .find(dto => dto.knowledge.knowledgeId == knowledge.knowledgeId);
-      const rate = dto ? dto.rate : null;
-      knowledges.push(this.formBuilder.group
-        ({ ratesRadio: [rate, Validators.required] }));
-    });
+    this.loadKnowledges();
   }
 
   public onSubmit(): void {
@@ -115,5 +107,16 @@ export class FrmDevComponent implements OnInit {
         ({ knowledge: this.knowledges[i++], rate: control.value });
     }
     return knowledgeDtos;
+  }
+
+  private loadKnowledges(): void {
+    this.knowledges.forEach(knowledge => {
+      const knowledges = this.form.get('knowledges') as FormArray;
+      const dto = (<Array<any>>this.developerDto.knowledgeDtos)
+        .find(dto => dto.knowledge.knowledgeId == knowledge.knowledgeId);
+      const rate = dto ? dto.rate : null;
+      knowledges.push(this.formBuilder.group
+        ({ ratesRadio: [rate, Validators.required] }));
+    });
   }
 }

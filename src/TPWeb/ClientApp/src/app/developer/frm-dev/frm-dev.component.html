@@ -1,6 +1,6 @@
 <form class="form-horizontal" [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="form-group required">
-    <label for="name" class="control-label">Nome/Name:</label>
+    <label for="name" class="control-label">Nome / Name:</label>
     <input type="text" class="form-control form-control-sm" id="name" formControlName="name" />
     <small *ngIf="invalid(form.controls.name)" style="color:red">Nome inválido!</small>
   </div>
@@ -15,12 +15,12 @@
     <small *ngIf="invalid(form.controls.skype)" style="color:red">Skype inválido!</small>
   </div>
   <div class="form-group required">
-    <label for="whatsapp" class="control-label">Telefone/Phone (Whatsapp):</label>
+    <label for="whatsapp" class="control-label">Telefone / Phone (Whatsapp):</label>
     <input type="text" class="form-control form-control-sm" id="whatsapp" formControlName="whatsapp" />
     <small *ngIf="invalid(form.controls.whatsapp)" style="color:red">Whatsapp inválido!</small>
   </div>
   <div class="form-group">
-    <label for="linkedIn" class="control-label">LinkedIn:&nbsp;</label>
+    <label for="linkedIn" class="control-label">LinkedIn:</label>
     <input type="text" class="form-control form-control-sm" id="linkedIn" formControlName="linkedIn" />
     <small *ngIf="invalid(form.controls.linkedIn)" style="color:red">LinkedIn inválido!</small>
   </div>
@@ -35,43 +35,51 @@
     <small *ngIf="invalid(form.controls.state)" style="color:red">Estado inválido!</small>
   </div>
   <div class="form-group">
-    <label for="portfolio" class="control-label">Portfolio:&nbsp;</label>
+    <label for="portfolio" class="control-label">Portfolio:</label>
     <textarea class="form-control form-control-sm" id="portfolio" formControlName="portfolio"></textarea>
     <small *ngIf="invalid(form.controls.portfolio)" style="color:red">Portfólio inválido!</small>
   </div>
   <div class="form-group required">
-    <label class="control-label">What is your willingness to work today? / Qual é sua disponibilidade para trabalhar hoje?</label>
+    <label class="control-label">Qual é sua disponibilidade para trabalhar hoje? / What is your willingness to work today?</label>
     <checkbox-group [cbFormGroup]="form" [controlName]="'availabilities'" [options]="availabilityItems" [selectedValues]="developerDto.availabilities"></checkbox-group>
     <small *ngIf="invalid(form.controls.availabilities)" style="color:red">Escolha a(s) disponibilidade(s)!</small>
   </div>
   <hr />
   <div class="form-group required">
-    <label class="control-label">What's the best time to work for you? / Pra você qual é o melhor horário para trabalhar?</label>
+    <label class="control-label">Pra você qual é o melhor horário para trabalhar? / What's the best time to work for you?</label>
     <checkbox-group [cbFormGroup]="form" [controlName]="'workingTimes'" [options]="workingTimeItems" [selectedValues]="developerDto.workingTimes"></checkbox-group>
     <small *ngIf="invalid(form.controls.workingTimes)" style="color:red">Escolha o(s) horário(s) para trabalhar!</small>
   </div>
   <div class="form-group required">
-    <label for="salary" class="control-label">What is your hourly salary requirements? / Qual sua pretensão salarial por hora?</label>
+    <label for="salary" class="control-label">Qual sua pretensão salarial por hora? / What is your hourly salary requirements?</label>
     <input type="number" class="form-control form-control-sm" id="salary" formControlName="salary" />
     <small *ngIf="invalid(form.controls.salary)" style="color:red">Salário inválido!</small>
   </div>
   <div class="form-group required">
+    <label>Avalie-se de 0 a 5 quanto aos conhecimentos especificados abaixo, e tudo bem se não souber de muitas coisas, o importante é que seja sincero! / Rate yourself from 0 to 5 for the knowledge specified below, and that's okay if you do not know many things, the important thing is to be honest!</label>
     <div formArrayName="knowledges"
          *ngFor="let knowledge of form.controls.knowledges.controls; index as i">
+      <hr />
       <label class="control-label">{{ knowledges[i].name }}:</label>
       <div [formGroupName]="i">
-        <label *ngFor="let rate of rates" style="margin-right: 20px">
+        <small>Não conheço / I don't know</small>
+        <label *ngFor="let rate of rateItems" class="radio-label">
           <input formControlName="ratesRadio"
                  type="radio"
                  [value]="rate.key"
                  class="form-control form-control-sm" />
           {{ rate.label }}
         </label>
+        <small>Senior</small>
       </div>
       <small *ngIf="invalid(knowledge.controls['ratesRadio'])" style="color:red">Escolha uma avaliação para {{knowledges[i].name}}!</small>
-      <hr />
     </div>
   </div>
-  <button type="submit" class="btn btn-primary btn-sm">Salvar</button>&nbsp;
-  <button type="button" (click)="onReset()" class="btn btn-secondary btn-sm">Limpar</button>
+  <div class="form-group">
+    <label for="extraKnowledge" class="control-label">Conhece mais alguma linguagem ou framework que não foi listado aqui em cima? Conte para nos e se auto avalie ainda de 0 a 5. / Do you know any other language or framework that was not listed above? Tell us and evaluate yourself from 0 to 5.</label>
+    <textarea class="form-control form-control-sm" id="extraKnowledge" formControlName="extraKnowledge"></textarea>
+    <small *ngIf="invalid(form.controls.extraKnowledge)" style="color:red">Conhecimento Extra inválido!</small>
+  </div>
+  <button type="submit" class="btn btn-primary btn-sm">Salvar / Save</button>&nbsp;
+  <button type="button" (click)="onReset()" class="btn btn-secondary btn-sm">Reset / Limpar</button>
 </form>

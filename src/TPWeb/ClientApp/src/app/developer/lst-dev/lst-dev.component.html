@@ -1,23 +1,25 @@
-<h1 id="tableLabel">Desenvolvedores</h1>
+<h2 id="tableLabel">Desenvolvedores / Developers</h2>
 
-<p *ngIf="!developers"><em>Carregando...</em></p>
+<p *ngIf="!developers"><em>Carregando / Loading...</em></p>
 
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="developers">
   <thead>
     <tr>
+      <th>Nome / Name</th>
       <th>Email</th>
-      <th>Nome</th>
-      <th>Cidade/Estado</th>
+      <th>Cidade / City</th>
+      <th>Estado / State</th>
       <th>Whatsapp</th>
-      <th>Alterar</th>
-      <th>Excluir</th>
+      <th>Alterar / Update</th>
+      <th>Excluir / Delete</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let developer of developers">
-      <td>{{ developer.email }}</td>
       <td>{{ developer.name }}</td>
-      <td>{{ developer.city +"/"+ developer.state }}</td>
+      <td>{{ developer.email }}</td>
+      <td>{{ developer.city }}</td>
+      <td>{{ developer.state }}</td>
       <td>{{ developer.whatsapp }}</td>
       <td style="text-align:center"><button (click)="update(developer)"></button></td>
       <td style="text-align:center"><button (click)="delete(developer)"></button></td>
@@ -25,7 +27,7 @@
   </tbody>
   <tfoot>
     <tr>
-      <td><button (click)="add()">Novo Desenvolvedor</button></td>
+      <td><button (click)="add()">Novo / New</button></td>
     </tr>
   </tfoot>
 </table>
