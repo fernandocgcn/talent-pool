@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,19 +16,6 @@ namespace EntityFramework.Data
         {
             _dbContext = dbContext ?? 
                 throw new ArgumentNullException(nameof(dbContext));
-        }
-
-        public string[] GetKeyProperties<T>(T entity) where T : class
-        {
-            object[] objects = GetKey(entity, false);
-            string[] strings = ((IEnumerable)objects).Cast<object>()
-                .Select(obj => obj.ToString()).ToArray();
-            return strings;
-        }
-
-        public object[] GetKeyValues<T>(T entity) where T : class
-        {
-            return GetKey(entity, true);
         }
 
         public T GetByKey<T>(params object[] keyValues) where T : class
@@ -68,26 +54,31 @@ namespace EntityFramework.Data
             _dbContext.Entry(oldEntity).CurrentValues.SetValues(newEntity);
         }
 
-        public void Update<T>(T attachedEntity) where T : class
+        public void Detach<T>(T entity) where T : class
         {
-            _dbContext.Update(attachedEntity);
+            if (entity != null && _dbContext.Entry(entity) != null)
+                _dbContext.Entry(entity).State = EntityState.Detached;
         }
 
-        private object[] GetKey<T>(T entity, bool isValue) where T : class
+        public int Commit()
         {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
-            List<object> values = new List<object>();
-            var entry = _dbContext.Entry(entity);
-            var primaryKey = entry.Metadata.FindPrimaryKey();
-            var keys = primaryKey.Properties.ToDictionary(k => k.Name, k => k.PropertyInfo);
-            foreach (var item in keys)
-            {
-                values.Add(isValue ? item.Value.GetValue(entity) : item.Value.Name);
-            }
-            return values.ToArray();
+            return _dbContext.SaveChanges();
+        }
+
+        public void RollBack()
+        {
+            var changedEntries = _dbContext.ChangeTracker.Entries()
+                .Where(entry => entry.State == EntityState.Added || 
+                        entry.State == EntityState.Modified ||
+                        entry.State == EntityState.Deleted)
+                .Reverse();
+            foreach (var entry in changedEntries)
+                entry.State = EntityState.Detached;
+        }
+
+        public DbSet<T> GetDbSet<T>() where T : class
+        {
+            return _dbContext.Set<T>();
         }
 
         private void LoadParent<T>(T entity) where T : class
@@ -133,33 +124,6 @@ namespace EntityFramework.Data
                 }
             }
             return includes.ToArray();
-        }
-
-        public void Detach<T>(T entity) where T : class
-        {
-            if (entity != null && _dbContext.Entry(entity) != null)
-                _dbContext.Entry(entity).State = EntityState.Detached;
-        }
-
-        public int Commit()
-        {
-            return _dbContext.SaveChanges();
-        }
-
-        public void RollBack()
-        {
-            var changedEntries = _dbContext.ChangeTracker.Entries()
-                .Where(entry => entry.State == EntityState.Added || 
-                        entry.State == EntityState.Modified ||
-                        entry.State == EntityState.Deleted)
-                .Reverse();
-            foreach (var entry in changedEntries)
-                entry.State = EntityState.Detached;
-        }
-
-        public DbSet<T> GetDbSet<T>() where T : class
-        {
-            return _dbContext.Set<T>();
         }
     }
 }
