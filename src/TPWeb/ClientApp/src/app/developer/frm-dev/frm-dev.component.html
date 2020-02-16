@@ -1,85 +1,100 @@
-<form class="form-horizontal" [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div class="form-group required">
-    <label for="name" class="control-label">Nome / Name:</label>
-    <input type="text" class="form-control form-control-sm" id="name" formControlName="name" />
-    <small *ngIf="invalid(form.controls.name)" style="color:red">Nome inválido!</small>
-  </div>
-  <div class="form-group required">
-    <label for="email" class="control-label">Endereço de e-mail:</label>
-    <input type="email" class="form-control form-control-sm" id="email" formControlName="email" />
-    <small *ngIf="invalid(form.controls.email)" style="color:red">E-mail inválido!</small>
-  </div>
-  <div class="form-group required">
-    <label for="skype" class="control-label">Skype:</label>
-    <input type="text" class="form-control form-control-sm" id="skype" formControlName="skype" />
-    <small *ngIf="invalid(form.controls.skype)" style="color:red">Skype inválido!</small>
-  </div>
-  <div class="form-group required">
-    <label for="whatsapp" class="control-label">Telefone / Phone (Whatsapp):</label>
-    <input type="text" class="form-control form-control-sm" id="whatsapp" formControlName="whatsapp" />
-    <small *ngIf="invalid(form.controls.whatsapp)" style="color:red">Whatsapp inválido!</small>
-  </div>
-  <div class="form-group">
-    <label for="linkedIn" class="control-label">LinkedIn:</label>
-    <input type="text" class="form-control form-control-sm" id="linkedIn" formControlName="linkedIn" />
-    <small *ngIf="invalid(form.controls.linkedIn)" style="color:red">LinkedIn inválido!</small>
-  </div>
-  <div class="form-group required">
-    <label for="city" class="control-label">Cidade / City:</label>
-    <input type="text" class="form-control form-control-sm" id="city" formControlName="city" />
-    <small *ngIf="invalid(form.controls.city)" style="color:red">Cidade inválida!</small>
-  </div>
-  <div class="form-group required">
-    <label for="state" class="control-label">Estado / State:</label>
-    <input type="text" class="form-control form-control-sm" id="state" formControlName="state" />
-    <small *ngIf="invalid(form.controls.state)" style="color:red">Estado inválido!</small>
-  </div>
-  <div class="form-group">
-    <label for="portfolio" class="control-label">Portfolio:</label>
-    <textarea class="form-control form-control-sm" id="portfolio" formControlName="portfolio"></textarea>
-    <small *ngIf="invalid(form.controls.portfolio)" style="color:red">Portfólio inválido!</small>
-  </div>
-  <div class="form-group required">
-    <label class="control-label">Qual é sua disponibilidade para trabalhar hoje? / What is your willingness to work today?</label>
-    <checkbox-group [cbFormGroup]="form" [controlName]="'availabilities'" [options]="availabilityItems" [selectedValues]="developerDto.availabilities"></checkbox-group>
-    <small *ngIf="invalid(form.controls.availabilities)" style="color:red">Escolha a(s) disponibilidade(s)!</small>
-  </div>
-  <hr />
-  <div class="form-group required">
-    <label class="control-label">Pra você qual é o melhor horário para trabalhar? / What's the best time to work for you?</label>
-    <checkbox-group [cbFormGroup]="form" [controlName]="'workingTimes'" [options]="workingTimeItems" [selectedValues]="developerDto.workingTimes"></checkbox-group>
-    <small *ngIf="invalid(form.controls.workingTimes)" style="color:red">Escolha o(s) horário(s) para trabalhar!</small>
-  </div>
-  <div class="form-group required">
-    <label for="salary" class="control-label">Qual sua pretensão salarial por hora? / What is your hourly salary requirements?</label>
-    <input type="number" class="form-control form-control-sm" id="salary" formControlName="salary" />
-    <small *ngIf="invalid(form.controls.salary)" style="color:red">Salário inválido!</small>
-  </div>
-  <div class="form-group required">
-    <label>Avalie-se de 0 a 5 quanto aos conhecimentos especificados abaixo, e tudo bem se não souber de muitas coisas, o importante é que seja sincero! / Rate yourself from 0 to 5 for the knowledge specified below, and that's okay if you do not know many things, the important thing is to be honest!</label>
-    <div formArrayName="knowledges"
-         *ngFor="let knowledge of form.controls.knowledges.controls; index as i">
-      <hr />
-      <label class="control-label">{{ knowledges[i].name }}:</label>
-      <div [formGroupName]="i">
-        <small>Não conheço / I don't know</small>
-        <label *ngFor="let rate of rateItems" class="radio-label">
-          <input formControlName="ratesRadio"
-                 type="radio"
-                 [value]="rate.key"
-                 class="form-control form-control-sm" />
-          {{ rate.label }}
-        </label>
-        <small>Senior</small>
-      </div>
-      <small *ngIf="invalid(knowledge.controls['ratesRadio'])" style="color:red">Escolha uma avaliação para {{knowledges[i].name}}!</small>
+<form id="regForm" class="form-horizontal" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="tab" *ngIf="currentTab == 1" formGroupName="1">
+    INFORMAÇÕES PESSOAIS / PERSONAL INFORMATION
+    <div class="form-group required">
+      <label for="name" class="control-label">Nome / Name:</label>
+      <input type="text" class="form-control form-control-sm" id="name" formControlName="name" />
+      <small *ngIf="invalid(form.controls[1].controls.name)" style="color:red">Nome inválido!</small>
+    </div>
+    <div class="form-group required">
+      <label for="email" class="control-label">Endereço de e-mail:</label>
+      <input type="email" class="form-control form-control-sm" id="email" formControlName="email" />
+      <small *ngIf="invalid(form.controls[1].controls.email)" style="color:red">E-mail inválido!</small>
+    </div>
+    <div class="form-group required">
+      <label for="skype" class="control-label">Skype:</label>
+      <input type="text" class="form-control form-control-sm" id="skype" formControlName="skype" />
+      <small *ngIf="invalid(form.controls[1].controls.skype)" style="color:red">Skype inválido!</small>
+    </div>
+    <div class="form-group required">
+      <label for="whatsapp" class="control-label">Telefone / Phone (Whatsapp):</label>
+      <input type="text" class="form-control form-control-sm" id="whatsapp" formControlName="whatsapp" />
+      <small *ngIf="invalid(form.controls[1].controls.whatsapp)" style="color:red">Whatsapp inválido!</small>
+    </div>
+    <div class="form-group">
+      <label for="linkedIn" class="control-label">LinkedIn:</label>
+      <input type="text" class="form-control form-control-sm" id="linkedIn" formControlName="linkedIn" />
+      <small *ngIf="invalid(form.controls[1].controls.linkedIn)" style="color:red">LinkedIn inválido!</small>
+    </div>
+    <div class="form-group required">
+      <label for="city" class="control-label">Cidade / City:</label>
+      <input type="text" class="form-control form-control-sm" id="city" formControlName="city" />
+      <small *ngIf="invalid(form.controls[1].controls.city)" style="color:red">Cidade inválida!</small>
+    </div>
+    <div class="form-group required">
+      <label for="state" class="control-label">Estado / State:</label>
+      <input type="text" class="form-control form-control-sm" id="state" formControlName="state" />
+      <small *ngIf="invalid(form.controls[1].controls.state)" style="color:red">Estado inválido!</small>
+    </div>
+    <div class="form-group">
+      <label for="portfolio" class="control-label">Portfolio:</label>
+      <textarea class="form-control form-control-sm" id="portfolio" formControlName="portfolio"></textarea>
+      <small *ngIf="invalid(form.controls[1].controls.portfolio)" style="color:red">Portfólio inválido!</small>
     </div>
   </div>
-  <div class="form-group">
-    <label for="extraKnowledge" class="control-label">Conhece mais alguma linguagem ou framework que não foi listado aqui em cima? Conte para nos e se auto avalie ainda de 0 a 5. / Do you know any other language or framework that was not listed above? Tell us and evaluate yourself from 0 to 5.</label>
-    <textarea class="form-control form-control-sm" id="extraKnowledge" formControlName="extraKnowledge"></textarea>
-    <small *ngIf="invalid(form.controls.extraKnowledge)" style="color:red">Conhecimento Extra inválido!</small>
+  <div class="tab" *ngIf="currentTab == 2" formGroupName="2">
+    INFORMAÇÕES SOBRE A OCUPAÇÃO / EMPLOYMENT INFORMATION
+    <div class="form-group required">
+      <label class="control-label">Qual é sua disponibilidade para trabalhar hoje? / What is your willingness to work today?</label>
+      <checkbox-group [cbFormGroup]="form.controls[2]" [controlName]="'availabilities'" [options]="availabilityItems" [selectedValues]="developerDto.availabilities"></checkbox-group>
+      <small *ngIf="invalid(form.controls[2].controls.availabilities)" style="color:red">Escolha a(s) disponibilidade(s)!</small>
+    </div>
+    <hr />
+    <div class="form-group required">
+      <label class="control-label">Pra você qual é o melhor horário para trabalhar? / What's the best time to work for you?</label>
+      <checkbox-group [cbFormGroup]="form.controls[2]" [controlName]="'workingTimes'" [options]="workingTimeItems" [selectedValues]="developerDto.workingTimes"></checkbox-group>
+      <small *ngIf="invalid(form.controls[2].controls.workingTimes)" style="color:red">Escolha o(s) horário(s) para trabalhar!</small>
+    </div>
+    <hr />
+    <div class="form-group required">
+      <label for="salary" class="control-label">Qual sua pretensão salarial por hora? / What is your hourly salary requirements?</label>
+      <input type="number" class="form-control form-control-sm" id="salary" formControlName="salary" />
+      <small *ngIf="invalid(form.controls[2].controls.salary)" style="color:red">Salário inválido!</small>
+    </div>
   </div>
-  <button type="submit" class="btn btn-primary btn-sm">Salvar / Save</button>&nbsp;
-  <button type="button" (click)="onReset()" class="btn btn-secondary btn-sm">Reset / Limpar</button>
+  <div class="tab" *ngIf="currentTab == 3" formGroupName="3">
+    CONHECIMENTOS / KNOWLEDGES
+    <div class="form-group required">
+      <label>Avalie-se de 0 a 5 quanto aos conhecimentos especificados abaixo, e tudo bem se não souber de muitas coisas, o importante é que seja sincero! / Rate yourself from 0 to 5 for the knowledge specified below, and that's okay if you do not know many things, the important thing is to be honest!</label>
+      <div formArrayName="knowledges"
+           *ngFor="let knowledge of form.controls[3].controls.knowledges.controls; index as i">
+        <hr />
+        <label class="control-label">{{ knowledges[i].name }}:</label>
+        <div [formGroupName]="i">
+          <small>Não conheço / I don't know</small>
+          <label *ngFor="let rate of rateItems" class="radio-label">
+            <input formControlName="ratesRadio"
+                   type="radio"
+                   [value]="rate.key"
+                   class="form-control form-control-sm" />
+            {{ rate.label }}
+          </label>
+          <small>Senior</small>
+        </div>
+        <small *ngIf="invalid(knowledge.controls['ratesRadio'])" style="color:red">Escolha uma avaliação para {{knowledges[i].name}}!</small>
+      </div>
+    </div>
+    <hr />
+    <div class="form-group">
+      <label for="extraKnowledge" class="control-label">Conhece mais alguma linguagem ou framework que não foi listado aqui em cima? Conte para nos e se auto avalie ainda de 0 a 5. / Do you know any other language or framework that was not listed above? Tell us and evaluate yourself from 0 to 5.</label>
+      <textarea class="form-control form-control-sm" id="extraKnowledge" formControlName="extraKnowledge"></textarea>
+      <small *ngIf="invalid(form.controls[3].controls.extraKnowledge)" style="color:red">Conhecimento Extra inválido!</small>
+    </div>
+  </div>
+  <div class="btn-group btn-group-sm" role="group">
+    <button type="button" (click)="onReset()" class="btn btn-secondary btn-sm m-1">Limpar / Reset</button>
+    <button type="button"  *ngIf="currentTab != 1" (click)="moveTab(-1)" class="m-1">Anterior / Previous</button>
+    <button type="button"  *ngIf="currentTab != 3" (click)="moveTab(1)" class="m-1">Próximo / Next</button>
+    <button type="submit"  *ngIf="currentTab == 3" class="btn btn-primary btn-sm m-1">Salvar / Save</button>
+  </div>
 </form>

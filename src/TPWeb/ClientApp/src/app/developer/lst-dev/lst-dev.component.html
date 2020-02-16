@@ -1,4 +1,4 @@
-<h2 id="tableLabel">Desenvolvedores / Developers</h2>
+<h3 id="tableLabel">Desenvolvedores / Developers</h3>
 
 <p *ngIf="!developers"><em>Carregando / Loading...</em></p>
 
@@ -10,19 +10,17 @@
       <th>Cidade / City</th>
       <th>Estado / State</th>
       <th>Whatsapp</th>
-      <th>Alterar / Update</th>
-      <th>Excluir / Delete</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let developer of developers">
-      <td>{{ developer.name }}</td>
-      <td>{{ developer.email }}</td>
-      <td>{{ developer.city }}</td>
-      <td>{{ developer.state }}</td>
-      <td>{{ developer.whatsapp }}</td>
-      <td style="text-align:center"><button (click)="update(developer)"></button></td>
-      <td style="text-align:center"><button (click)="delete(developer)"></button></td>
+      <td (click)="update(developer)" style="cursor: pointer">{{ developer.name }}</td>
+      <td (click)="update(developer)" style="cursor: pointer">{{ developer.email }}</td>
+      <td (click)="update(developer)" style="cursor: pointer">{{ developer.city }}</td>
+      <td (click)="update(developer)" style="cursor: pointer">{{ developer.state }}</td>
+      <td (click)="update(developer)" style="cursor: pointer">{{ developer.whatsapp }}</td>
+      <td><button (click)="delete(developer)">Excluir / Delete</button></td>
     </tr>
   </tbody>
   <tfoot>

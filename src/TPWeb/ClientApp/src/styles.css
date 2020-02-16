@@ -9,18 +9,6 @@ code {
   color: #e01a76;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-.form-group.required .control-label:after {
-  content: " *";
-  color: red;
-}
-
-.radio-label {
-  margin-left: 20px;
-  margin-right: 20px;
+button {
+  white-space: nowrap;
 }

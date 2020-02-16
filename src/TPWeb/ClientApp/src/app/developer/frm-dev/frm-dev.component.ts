@@ -33,6 +33,8 @@ export class FrmDevComponent implements OnInit {
     Object.keys(ERate).map
       (r => ({ label: ERate[r], key: ERateKey[r] }));
 
+  public currentTab: number = 1;
+
   constructor(private router: Router,
               private formBuilder: FormBuilder,
               private developerService: DeveloperService) {
@@ -45,19 +47,25 @@ export class FrmDevComponent implements OnInit {
 
   public ngOnInit(): void {
     this.form = this.formBuilder.group({
-      name: [this.developerDto.developer.name, Validators.required],
-      email: [this.developerDto.developer.email, [Validators.required, Validators.email]],
-      city: [this.developerDto.developer.city, Validators.required],
-      state: [this.developerDto.developer.state, Validators.required],
-      skype: [this.developerDto.developer.skype, Validators.required],
-      whatsapp: [this.developerDto.developer.whatsapp, Validators.required],
-      salary: [this.developerDto.developer.salary, [Validators.required, Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$')]],
-      linkedIn: [this.developerDto.developer.linkedIn],
-      portfolio: [this.developerDto.developer.portfolio],
-      extraKnowledge: [this.developerDto.developer.extraKnowledge],
-      availabilities: this.formBuilder.array([], ValidateRequiredCheckBox()),
-      workingTimes: this.formBuilder.array([], ValidateRequiredCheckBox()),
-      knowledges: this.formBuilder.array([])
+      1: this.formBuilder.group({
+        name: [this.developerDto.developer.name, Validators.required],
+        email: [this.developerDto.developer.email, [Validators.required, Validators.email]],
+        city: [this.developerDto.developer.city, Validators.required],
+        state: [this.developerDto.developer.state, Validators.required],
+        skype: [this.developerDto.developer.skype, Validators.required],
+        whatsapp: [this.developerDto.developer.whatsapp, Validators.required],
+        linkedIn: [this.developerDto.developer.linkedIn],
+        portfolio: [this.developerDto.developer.portfolio]
+      }),
+      2: this.formBuilder.group({
+        availabilities: this.formBuilder.array([], ValidateRequiredCheckBox()),
+        workingTimes: this.formBuilder.array([], ValidateRequiredCheckBox()),
+        salary: [this.developerDto.developer.salary, [Validators.required, Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$')]]
+      }),
+      3: this.formBuilder.group({
+        knowledges: this.formBuilder.array([]),
+        extraKnowledge: [this.developerDto.developer.extraKnowledge]
+      })
     });
     this.loadKnowledges();
   }
@@ -65,11 +73,13 @@ export class FrmDevComponent implements OnInit {
   public onSubmit(): void {
     if (this.form.valid) {
       
-      this.form.value.developerId = this.developerDto.developer.developerId;
+      this.form.controls[1].value.developerId = this.developerDto.developer.developerId;
+      this.form.controls[1].value.salary = this.form.controls[2].value.salary;
+      this.form.controls[1].value.extraKnowledge = this.form.controls[3].value.extraKnowledge;
       this.developerService.save({
-          developer: this.form.value,
-          availabilities: GetCheckBoxValues(this.form.get('availabilities')),
-          workingTimes: GetCheckBoxValues(this.form.get('workingTimes')),
+        developer: this.form.controls[1].value,
+        availabilities: GetCheckBoxValues((<FormGroup>this.form.controls[2]).controls.availabilities),
+        workingTimes: GetCheckBoxValues((<FormGroup>this.form.controls[2]).controls.workingTimes),
           knowledgeDtos: this.knowledgeDtos
         })
         .subscribe(() => {
@@ -89,16 +99,30 @@ export class FrmDevComponent implements OnInit {
   }
 
   public onReset(): void {
-    this.form.reset();
+    const formGroup = this.form.controls[this.currentTab] as FormGroup;
+    formGroup.reset();
   }
 
   public invalid(control: FormControl): boolean {
     return !control.valid && control.touched;
   }
 
+  public moveTab(index: number): void {
+    window.scrollTo(0, 0);
+    const formGroup = this.form.controls[this.currentTab] as FormGroup;
+    if (index > 0 && formGroup.invalid) {
+      Object.keys(formGroup.controls).forEach(controlName => {
+        formGroup.controls[controlName].markAllAsTouched();
+      });
+    }
+    else
+      this.currentTab += index;
+  }
+
   private get knowledgeDtos(): any[] {
     const knowledgeDtos = [];
-    const knowledges = this.form.get('knowledges') as FormArray;
+    const knowledges = (<FormGroup>this.form.controls[3])
+      .controls.knowledges as FormArray;
     let i = 0;
     for (const formGroup of knowledges.controls) {
       const control = (<FormGroup>formGroup)
@@ -111,7 +135,8 @@ export class FrmDevComponent implements OnInit {
 
   private loadKnowledges(): void {
     this.knowledges.forEach(knowledge => {
-      const knowledges = this.form.get('knowledges') as FormArray;
+      const knowledges = (<FormGroup>this.form.controls[3])
+        .controls.knowledges as FormArray;
       const dto = (<Array<any>>this.developerDto.knowledgeDtos)
         .find(dto => dto.knowledge.knowledgeId == knowledge.knowledgeId);
       const rate = dto ? dto.rate : null;
@@ -119,4 +144,5 @@ export class FrmDevComponent implements OnInit {
         ({ ratesRadio: [rate, Validators.required] }));
     });
   }
+
 }
