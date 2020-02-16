@@ -1,8 +1,8 @@
 
 src/.vs
 misc/ClassDiagram.svg
-src/Kernel/bin
-src/Kernel/obj
+src/Common/bin
+src/Common/obj
 src/EntityFramework/bin
 src/EntityFramework/obj
 src/TPModel/bin

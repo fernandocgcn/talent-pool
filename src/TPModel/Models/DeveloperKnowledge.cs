@@ -1,4 +1,4 @@
-﻿using Kernel.Resources;
+﻿using Common.Resources;
 using TPModel.Resources;
 using System;
 using System.ComponentModel.DataAnnotations;

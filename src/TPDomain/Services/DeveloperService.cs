@@ -1,5 +1,5 @@
-﻿using Kernel.Extensions;
-using Kernel.Resources;
+﻿using Common.Extensions;
+using Common.Resources;
 using EntityFramework.Data;
 using EntityFramework.Validations;
 using TPModel.Models;

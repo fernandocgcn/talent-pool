@@ -1,5 +1,5 @@
-﻿using Kernel.Extensions;
-using Kernel.Resources;
+﻿using Common.Extensions;
+using Common.Resources;
 using System;
 using System.ComponentModel.DataAnnotations;
 

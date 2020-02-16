@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Resources;
 
-namespace Kernel.Extensions
+namespace Common.Extensions
 {
     public static class Util
     {
