@@ -1,7 +1,7 @@
 ﻿using Kernel.Extensions;
+using Kernel.Resources;
 using EntityFramework.Data;
 using EntityFramework.Validations;
-using EntityFramework.Resources;
 using TPModel.Models;
 using System;
 using System.Collections.Generic;

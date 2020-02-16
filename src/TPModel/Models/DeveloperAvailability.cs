@@ -1,4 +1,4 @@
-﻿using EntityFramework.Resources;
+﻿using Kernel.Resources;
 using TPModel.Resources;
 using System;
 using System.Collections.Generic;

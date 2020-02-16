@@ -1,5 +1,5 @@
 ﻿using Kernel.Extensions;
-using EntityFramework.Resources;
+using Kernel.Resources;
 using System;
 using System.ComponentModel.DataAnnotations;
 
