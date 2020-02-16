@@ -4,6 +4,8 @@ Exemplo de CRUD de um Banco de Talentos para Desenvolvedores em um Projeto OO co
 
 ![](/misc/ClassDiagram.png)
 
+![](/misc/ComponentDiagram.png)
+
 ## Tecnologias Utilizadas
 
 ### Banco de Dados (Microsoft SQL Server 2008 R2 Express Edition)
