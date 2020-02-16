@@ -1,6 +1,7 @@
 
 src/.vs
 misc/ClassDiagram.svg
+misc/ComponentDiagram.drawio
 src/Common/bin
 src/Common/obj
 src/EntityFramework/bin
