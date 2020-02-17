@@ -27,3 +27,16 @@ Exemplo de CRUD de um Banco de Talentos para Desenvolvedores em um Projeto OO co
 ### Front-End (C# - .NET Core; TypeScript/JavaScript/HTML/CSS - Angular com Bootstrap)
 
 * src/TPWeb - Api Web MVC e Single Page Application (Microsoft.AspNetCore.SpaServices.Extensions), utilizando os padrões "MVC" e "Dependency Injection" para Inversão de Controle
+
+## Screenshots da Aplicação
+
+![](/misc/screenshots/01.png)
+![](/misc/screenshots/02.png)
+![](/misc/screenshots/03.png)
+![](/misc/screenshots/04.png)
+![](/misc/screenshots/05.png)
+![](/misc/screenshots/06.png)
+![](/misc/screenshots/07.png)
+![](/misc/screenshots/08.png)
+![](/misc/screenshots/09.png)
+![](/misc/screenshots/10.png)
