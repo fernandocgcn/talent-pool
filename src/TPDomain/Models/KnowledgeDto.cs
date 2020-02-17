@@ -1,7 +1,8 @@
-﻿using System;
+﻿using TPModel.Models;
+using System;
 using System.Collections.Generic;
 
-namespace TPModel.Models
+namespace TPDomain.Models
 {
     public class KnowledgeDto
     {

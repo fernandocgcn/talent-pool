@@ -79,15 +79,6 @@ namespace TPModel.Resources {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Link do Exemplo de CRUD.
-        /// </summary>
-        public static string CrudLink {
-            get {
-                return ResourceManager.GetString("CrudLink", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Desenvolvedor.
         /// </summary>
         public static string Developer {

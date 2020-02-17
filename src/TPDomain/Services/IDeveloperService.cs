@@ -1,4 +1,5 @@
 ﻿using TPModel.Models;
+using TPDomain.Models;
 using System.Collections.Generic;
 
 namespace TPDomain.Services

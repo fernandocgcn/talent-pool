@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using TPModel.Models;
+using System.Collections.Generic;
 
-namespace TPModel.Models
+namespace TPDomain.Models
 {
     public class DeveloperDto
     {

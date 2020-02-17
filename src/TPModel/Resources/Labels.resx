@@ -123,9 +123,6 @@
   <data name="City" xml:space="preserve">
     <value>Cidade</value>
   </data>
-  <data name="CrudLink" xml:space="preserve">
-    <value>Link do Exemplo de CRUD</value>
-  </data>
   <data name="Developer" xml:space="preserve">
     <value>Desenvolvedor</value>
   </data>

@@ -3,6 +3,7 @@ using Common.Resources;
 using EntityFramework.Data;
 using EntityFramework.Validations;
 using TPModel.Models;
+using TPDomain.Models;
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;

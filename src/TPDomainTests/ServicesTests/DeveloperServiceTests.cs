@@ -4,6 +4,7 @@ using EntityFramework.Data;
 using EntityFramework.Validations;
 using TPModel.Models;
 using TPModel.Resources;
+using TPDomain.Models;
 using TPDomain.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.ComponentModel.DataAnnotations;

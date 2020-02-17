@@ -1,4 +1,5 @@
 ﻿using TPModel.Models;
+using TPDomain.Models;
 using TPDomain.Services;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
