@@ -24,6 +24,6 @@ Exemplo de CRUD de um Banco de Talentos para Desenvolvedores em um Projeto OO co
 
 * src/TPDomainTests - Testes Unitários (MSTest) dos Serviços do Domínio e Lógica do Negócio do Projeto  
 
-### Front-End (C# - .NET Core; TypeScript/JavaScript/HTML/CSS - Angular)
+### Front-End (C# - .NET Core; TypeScript/JavaScript/HTML/CSS - Angular com Bootstrap)
 
 * src/TPWeb - Api Web MVC e Single Page Application (Microsoft.AspNetCore.SpaServices.Extensions), utilizando os padrões "MVC" e "Dependency Injection" para Inversão de Controle
