@@ -42,3 +42,7 @@ Vídeo Explicativo do Projeto: (https://youtu.be/aDIHZLLCV5s)
 ![](/misc/screenshots/08.png)
 ![](/misc/screenshots/09.png)
 ![](/misc/screenshots/10.png)
+
+## Considerações sobre o Projeto
+
+Tendo em consideração esse escopo atual de entidades, poderíamos ainda implementar relevantes consultas gerenciais para tomada de decisão. Exemplos como quais desenvolvedores possuem conhecimento nível sênior em determinada habilidade e gostariam de trabalhar mais de 6 horas por dia? Ou seja, o retorno necessário para que o empregador possua informações precisas nas suas contratações.
