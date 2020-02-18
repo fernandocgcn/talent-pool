@@ -2,6 +2,8 @@
 
 Exemplo de CRUD de um Banco de Talentos para Desenvolvedores em um Projeto OO com uma Arquitetura Multicamadas  
 
+Vídeo Explicativo do Projeto: [link text](https://youtu.be/aDIHZLLCV5s)
+
 ![](/misc/ClassDiagram.png)
 
 ![](/misc/ComponentDiagram.png)
